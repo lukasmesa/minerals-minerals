@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.JToggleButton;
@@ -25,6 +26,7 @@ public class MineFrame extends javax.swing.JFrame {
     private Mine mine;
     private PanelMineCreator internalPanel;
     private List<JToggleButton> buttons;
+    private JFrame frame;
 
     //cuando se agregue el tamaño del mapa
     public MineFrame(int rows, int columns) {
@@ -56,6 +58,7 @@ public class MineFrame extends javax.swing.JFrame {
         jToggleButtonDeposits = new javax.swing.JToggleButton();
         jToggleButtonPaths = new javax.swing.JToggleButton();
         jToggleButtonExit = new javax.swing.JToggleButton();
+        btnCreateMine = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +89,13 @@ public class MineFrame extends javax.swing.JFrame {
             }
         });
 
+        btnCreateMine.setText("Crear Mina");
+        btnCreateMine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateMineActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,6 +113,10 @@ public class MineFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToggleButtonPaths)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(271, 271, 271)
+                .addComponent(btnCreateMine)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +130,9 @@ public class MineFrame extends javax.swing.JFrame {
                         .addComponent(jToggleButtonDeposits)))
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButtonPaths)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addComponent(btnCreateMine)
+                .addContainerGap())
         );
 
         pack();
@@ -133,6 +149,12 @@ public class MineFrame extends javax.swing.JFrame {
     private void jToggleButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonExitActionPerformed
          ToogleButtonAction(1, jToggleButtonExit);
     }//GEN-LAST:event_jToggleButtonExitActionPerformed
+
+    private void btnCreateMineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateMineActionPerformed
+        frame = new IndexFrame();
+        frame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCreateMineActionPerformed
 
     private void loadMap(int rows, int columns) {
         panelMineCreator1.setLocation(100, 50);
@@ -209,6 +231,7 @@ public class MineFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCreateMine;
     private javax.swing.JToggleButton jToggleButtonDeposits;
     private javax.swing.JToggleButton jToggleButtonExit;
     private javax.swing.JToggleButton jToggleButtonPaths;
