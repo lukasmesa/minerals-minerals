@@ -5,12 +5,6 @@
  */
 package view;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 /**
  * Insert class description here
  *
@@ -19,28 +13,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class IndexFrame extends javax.swing.JFrame {
 
-    int opcionSelecionada;
-    int tipoMineral = -1;
-    JFrame createMine;
 
     public IndexFrame() {
-        opcionSelecionada = JOptionPane.showOptionDialog(
-                this,
-                "Seleccione una opción",
-                "Minerals & Minerals S.A",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null, // null para icono por defecto.
-                new Object[]{"Crear Mina", "Cargar Mina", "Predeterminado"}, // null para YES, NO y CANCEL
-                "Cargar Mina");
-        System.out.println(opcionSelecionada);
-        tipoMineral = opcionBienvenida(opcionSelecionada);
-        System.out.println(tipoMineral);
-        if (tipoMineral != -1) {
-            System.out.println("hola");
-            createMine = new FrameCreate();
-            createMine.setVisible(true);
-        }
         initComponents();
     }
 
@@ -87,42 +61,6 @@ public class IndexFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * Descripción del método.
-     *
-     * @param seleccion
-     * @return opción selecionada por el usuario
-     */
-    private int opcionBienvenida(int seleccion) {
-        if (seleccion == 0) {
-            int tipo = 0;
-            JButton oro = new JButton("Oro", null);
-            JButton plata = new JButton("Plata", null);
-            JButton cobre = new JButton("Cobre", null);
-            tipo = JOptionPane.showOptionDialog(
-                    this,
-                    "Crear Mina",
-                    "Seleccione el tipo de mineral",
-                    JOptionPane.YES_NO_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null, // null para icono por defecto.
-                    new Object[]{oro, plata, cobre}, // null para YES, NO y CANCEL
-                    oro);
-            return tipo;
-        } else if (seleccion == 1) {
-            JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Documents", "json");
-            chooser.setFileFilter(filter);
-            int returnVal = chooser.showOpenDialog(this);
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                System.out.println("You chose to open this file: "
-                        + chooser.getSelectedFile().getName());
-            }
-        } else if (seleccion == 2) {
-            opcionPredeterminda();
-        }
-        return 0;
-    }
 
     /**
      * @param args the command line arguments
@@ -153,6 +91,7 @@ public class IndexFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new IndexFrame().setVisible(true);
             }
