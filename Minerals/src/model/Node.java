@@ -4,7 +4,7 @@
  * 0 inaccesible,1 salida,2 deposito, 3 ruta
  * el entero se llama category
  */
-package Class;
+package model;
 
 import java.awt.Rectangle;
 import java.util.LinkedList;
@@ -59,12 +59,12 @@ public class Node {
 
     public void addNeighbor(Node current) {
         if (current.getCategory() != 0) {
-            neighbors.add(current);
+            getNeighbors().add(current);
         }
     }
 
     public boolean isInroute() {
-        return inRoute;
+        return isInRoute();
     }
     
     public void setInRoute(boolean value) {
@@ -78,8 +78,40 @@ public class Node {
     public int getCost() {
         return cost;
     }
-    
-    
-    
+
+    /**
+     * @param x the x to set
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * @param y the y to set
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    /**
+     * @param space the space to set
+     */
+    public void setSpace(Rectangle space) {
+        this.space = space;
+    }
+
+    /**
+     * @param neighbors the neighbors to set
+     */
+    public void setNeighbors(LinkedList<Node> neighbors) {
+        this.neighbors = neighbors;
+    }
+
+    /**
+     * @return the inRoute
+     */
+    public boolean isInRoute() {
+        return inRoute;
+    }
 
 }

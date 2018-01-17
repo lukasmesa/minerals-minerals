@@ -90,9 +90,38 @@ public class WelcomeDialog extends JPanel {
         System.out.println("Opción seleccionada: " + getOpcionSelecionada());
         switch (getOpcionSelecionada()) {
             case 0:
-                setTipoMineral(seleccionMineral(getOpcionSelecionada()));
-                if (getTipoMineral() != -1) {
-            switch (getTipoMineral()) {
+                seleccionMineral();
+                break;
+            case 1:
+                seleccionArchivo();
+                break;
+            case 2:
+                opcionPredeterminda();
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Permite al usuario elegir el mineral con el cuál va crear la mina a
+     * través de un elemento JOptionPane
+     *
+     */
+    public void seleccionMineral() {
+        Object[] minerales = {"Oro", "Plata", "Cobre"};
+        int mineral = JOptionPane.showOptionDialog(
+                this,
+                "Crear Mina",
+                "Seleccione el tipo de mineral",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, // null para icono por defecto.
+                minerales,
+                minerales[1]
+        );
+        if (mineral != -1) {
+            switch (mineral) {
                 case 0:
                     System.out.println("Tipo Mineral: Oro");
                     break;
@@ -106,47 +135,11 @@ public class WelcomeDialog extends JPanel {
                     System.out.println("Tipo Mineral: Error");
                     break;
             }
-                    setMineFrame(new MineFrame());
-                    getMineFrame().setVisible(true);
-                    getMineFrame().setTitle("Crear Mina");
+            setMineFrame(new MineFrame());
+            getMineFrame().setVisible(true);
+            getMineFrame().setTitle("Crear Mina");
 //            mineFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                }
-                break;
-            case 1:
-                seleccionArchivo();
-                setMineFrame(new IndexFrame());
-                getMineFrame().setVisible(true);
-                break;
-            case 2:
-                opcionPredeterminda();
-                setMineFrame(new IndexFrame());
-                getMineFrame().setVisible(true);
-                break;
-            default:
-                break;
         }
-    }
-
-    /**
-     * Permite al usuario elegir el mineral con el cuál va crear la mina a
-     * través de un elemento JOptionPane
-     *
-     * @param seleccion descripción parámetro
-     * @return descripción de lo que retorna
-     */
-    public int seleccionMineral(int seleccion) {
-        Object[] minerales = {"Oro", "Plata", "Cobre"};
-        int mineral = JOptionPane.showOptionDialog(
-                this,
-                "Crear Mina",
-                "Seleccione el tipo de mineral",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null, // null para icono por defecto.
-                minerales,
-                minerales[1]
-        );
-        return mineral;
     }
 
     /**
@@ -163,6 +156,8 @@ public class WelcomeDialog extends JPanel {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             //System.out.println("You chose to open this file:" + chooser.getSelectedFile().getName());
             leerArchivo(chooser.getSelectedFile());
+            setMineFrame(new IndexFrame());
+            getMineFrame().setVisible(true);
         }
     }
 
@@ -172,6 +167,8 @@ public class WelcomeDialog extends JPanel {
      */
     private void opcionPredeterminda() {
         System.out.println("Opción predeterminada");
+        setMineFrame(new IndexFrame());
+        getMineFrame().setVisible(true);
     }
 
     private void leerArchivo(File selectedFile) {
