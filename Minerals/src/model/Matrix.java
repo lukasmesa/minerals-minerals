@@ -2,7 +2,7 @@
    Clase para representar la matriz de adyacencias, se compone de nodos
    *cada nodo tiene un tipo, a la hora de pintarlo, se va a ver reflejado
  */
-package Class;
+package model;
 
 /**
  *
@@ -31,6 +31,7 @@ public class Matrix {
     public Node[][] getMatrix() {
         return matrix;
     }
+    
 
     //Metodo para agregar nodos a la matriz, mira que la posición esté vacia antes de agregar
     //y que la posición que le ingresa se encuentre dentro del tamaño de la matriz(posiblemente removerlo a futuro)
@@ -78,13 +79,33 @@ public class Matrix {
                             current.addNeighbor(matrix[row + 1][column]);
                             current.addNeighbor(matrix[row - 1][column]);
                             current.addNeighbor(matrix[row][column + 1]);
-
                         }
                     }
                 }
             }
         }
 
+    }
+
+    /**
+     * @param matrix the matrix to set
+     */
+    public void setMatrix(Node[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    /**
+     * @param columns the columns to set
+     */
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    /**
+     * @param rows the rows to set
+     */
+    public void setRows(int rows) {
+        this.rows = rows;
     }
 
 }

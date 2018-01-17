@@ -5,8 +5,8 @@
  */
 package view;
 
-import Class.Mine;
-import Class.Node;
+import model.Mine;
+import model.Node;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -24,19 +24,19 @@ public class PanelMineCreator extends javax.swing.JPanel {
     /**
      * Creates new form PanelMineCreator
      */
-    private int height;
-    private int width;
+    private int heightMine;
+    private int widthMine;
     private int cellsize;
     private int optionselected;
-    private boolean paint;
+    private boolean paintable;
     private Node mapparttopaint;
     private Mine mine;
 
     public PanelMineCreator() {
         initComponents();
-        cellsize = 5;
+        cellsize = 25;
         optionselected = 0;
-        paint = false;
+        paintable = false;
         setLayout(new OverlayLayout(this));
     }
 
@@ -45,8 +45,8 @@ public class PanelMineCreator extends javax.swing.JPanel {
         super.paintComponent(g);
         if (mine != null) {
             Node current;
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
+            for (int i = 0; i < heightMine; i++) {
+                for (int j = 0; j < widthMine; j++) {
                     Rectangle space = new Rectangle(j * cellsize, i * cellsize, cellsize, cellsize);
                     current = new Node(space, i, j);
                     mine.addMapPart(current);
@@ -58,33 +58,33 @@ public class PanelMineCreator extends javax.swing.JPanel {
         }
     }
 
-    public int getHeight() {
-        return height;
+    public int getHeightMine() {
+        return heightMine;
     }
 
-    public void setHeight(int h) {
-        this.height = h;
+    public void setHeightMine(int h) {
+        this.heightMine = h;
     }
 
-    public int getWidth() {
-        return width;
+    public int getWidthMine() {
+        return widthMine;
+    }
+
+    public void setWidthMine(int w) {
+        this.widthMine = w;
     }
 
     public void setRowsCol(int w, int h) {
-        this.width = w;
-        this.height = h;
-        mine = new Mine(height, width);
+        this.widthMine = w;
+        this.heightMine = h;
+        mine = new Mine(heightMine, widthMine);
         //this.matriz=new Matriz(ancho, alto);
-    }
-
-    public void setWidth(int w) {
-        this.width = w;
     }
 
     private Node getClickedSpace(Point clickCoordinates) {
         Node n;
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < widthMine; i++) {
+            for (int j = 0; j < heightMine; j++) {
                 if (mine.getMapNodeSpace(i, j).contains(clickCoordinates)) {
                     n = mine.getElementinPosition(i, j);
                     return n;
@@ -92,7 +92,6 @@ public class PanelMineCreator extends javax.swing.JPanel {
             }
         }
         return null;
-
     }
 
     public int getOptionselected() {
@@ -103,20 +102,20 @@ public class PanelMineCreator extends javax.swing.JPanel {
         this.optionselected = optionselected;
     }
 
-    public boolean isPaint() {
-        return paint;
+    public boolean isPaintable() {
+        return paintable;
     }
 
-    public void setPaint(boolean paint) {
-        this.paint = paint;
+    public void setPaintable(boolean paintable) {
+        this.paintable = paintable;
     }
 
     public void paintSpace(Node tobecolored) {
-        if (tobecolored != null && paint) {
+        if (tobecolored != null && paintable) {
             JLabel label = new JLabel();
             label.setBounds(tobecolored.getSpace());
-            if (getComponentAt(tobecolored.getSpace().x, tobecolored.getSpace().y) != null) {
-                remove(getComponentAt(tobecolored.getSpace().x, tobecolored.getSpace().y));
+            if (getComponentAt(tobecolored.getX(), tobecolored.getY()) != null) {
+                remove(getComponentAt(tobecolored.getX(), tobecolored.getY()));
             }
 
             switch (optionselected) {
@@ -139,7 +138,6 @@ public class PanelMineCreator extends javax.swing.JPanel {
 
             label.setOpaque(true);
             add(label);
-
             repaint();
 
         }
@@ -179,7 +177,7 @@ public class PanelMineCreator extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        if (paint) {
+        if (paintable) {
             mapparttopaint = getClickedSpace(evt.getPoint());
             if (mapparttopaint != null) {
                 if (mapparttopaint.getCategory() == 0 && optionselected != 0) {

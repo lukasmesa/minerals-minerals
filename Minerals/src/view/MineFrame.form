@@ -23,27 +23,25 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-              <Component id="panelMineCreator1" min="-2" pref="100" max="-2" attributes="0"/>
-              <EmptySpace pref="357" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jToggleButtonExit" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jToggleButtonDeposits" alignment="1" min="-2" max="-2" attributes="0"/>
-              </Group>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jToggleButtonPaths" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="271" max="-2" attributes="0"/>
               <Component id="btnCreateMine" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="283" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Component id="panelMineCreator" pref="0" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jToggleButtonDeposits" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jToggleButtonExit" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jToggleButtonPaths" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -52,16 +50,17 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="panelMineCreator1" min="-2" pref="100" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jToggleButtonExit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="jToggleButtonDeposits" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="jToggleButtonPaths" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="121" max="32767" attributes="0"/>
                   </Group>
+                  <Component id="panelMineCreator" pref="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jToggleButtonPaths" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="139" max="32767" attributes="0"/>
               <Component id="btnCreateMine" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -69,7 +68,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="view.PanelMineCreator" name="panelMineCreator1">
+    <Container class="view.PanelMineCreator" name="panelMineCreator">
       <Properties>
         <Property name="alignmentX" type="float" value="0.5"/>
         <Property name="alignmentY" type="float" value="0.5"/>
@@ -83,11 +82,11 @@
       </Properties>
       <LayoutCode>
         <CodeStatement>
-          <CodeExpression id="1_panelMineCreator1">
-            <CodeVariable name="panelMineCreator1" type="8194" declaredType="view.PanelMineCreator"/>
+          <CodeExpression id="1_panelMineCreator">
+            <CodeVariable name="panelMineCreator" type="8194" declaredType="view.PanelMineCreator"/>
             <ExpressionOrigin>
               <ExpressionProvider type="ComponentRef">
-                <ComponentRef name="panelMineCreator1"/>
+                <ComponentRef name="panelMineCreator"/>
               </ExpressionProvider>
             </ExpressionOrigin>
           </CodeExpression>
@@ -101,7 +100,7 @@
                   <CodeConstructor class="javax.swing.OverlayLayout" parameterTypes="java.awt.Container"/>
                 </ExpressionProvider>
                 <Parameters>
-                  <CodeExpression id="1_panelMineCreator1"/>
+                  <CodeExpression id="1_panelMineCreator"/>
                 </Parameters>
               </ExpressionOrigin>
             </CodeExpression>
