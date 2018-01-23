@@ -8,15 +8,10 @@ package view;
 import model.Mine;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JSlider;
 import javax.swing.JToggleButton;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -33,16 +28,58 @@ public class MineFrame extends javax.swing.JFrame {
         initComponents();
         loadMap(rows, columns);
         buttons = new LinkedList<>();
-        loadButtons();
+        //loadButtons();
     }
 
     //con tamaño fijo
     public MineFrame() {
         initComponents();
-        buttons=new LinkedList<>();
+        buttons = new LinkedList<>();
         setBounds(200, 50, 600, 600);
-        loadMap(10, 10);
-        loadButtons();
+        loadMap(20, 20);
+        //loadButtons();
+    }
+
+    /**
+     * @return the mine
+     */
+    public Mine getMine() {
+        return mine;
+    }
+
+    /**
+     * @param mine the mine to set
+     */
+    public void setMine(Mine mine) {
+        this.mine = mine;
+    }
+
+    /**
+     * @return the buttons
+     */
+    public List<JToggleButton> getButtons() {
+        return buttons;
+    }
+
+    /**
+     * @param buttons the buttons to set
+     */
+    public void setButtons(List<JToggleButton> buttons) {
+        this.buttons = buttons;
+    }
+
+    /**
+     * @return the frame
+     */
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    /**
+     * @param frame the frame to set
+     */
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
     }
 
     /**
@@ -55,39 +92,17 @@ public class MineFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         panelMineCreator = new view.PanelMineCreator();
-        jToggleButtonDeposits = new javax.swing.JToggleButton();
-        jToggleButtonPaths = new javax.swing.JToggleButton();
-        jToggleButtonExit = new javax.swing.JToggleButton();
         btnCreateMine = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(550, 700));
+        setPreferredSize(new java.awt.Dimension(550, 700));
 
         panelMineCreator.setAlignmentX(0.5F);
         panelMineCreator.setAlignmentY(0.5F);
         panelMineCreator.setMaximumSize(new java.awt.Dimension(32700, 32700));
         panelMineCreator.setName(""); // NOI18N
         panelMineCreator.setPreferredSize(new java.awt.Dimension(500, 500));
-
-        jToggleButtonDeposits.setText("2. Agrega Depósitos");
-        jToggleButtonDeposits.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonDepositsActionPerformed(evt);
-            }
-        });
-
-        jToggleButtonPaths.setText("3. Agrega Caminos");
-        jToggleButtonPaths.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonPathsActionPerformed(evt);
-            }
-        });
-
-        jToggleButtonExit.setText("1. Agrega Salida");
-        jToggleButtonExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButtonExitActionPerformed(evt);
-            }
-        });
 
         btnCreateMine.setText("Crear Mina");
         btnCreateMine.addActionListener(new java.awt.event.ActionListener() {
@@ -101,76 +116,49 @@ public class MineFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(271, 271, 271)
-                .addComponent(btnCreateMine)
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(panelMineCreator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(panelMineCreator, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToggleButtonDeposits, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jToggleButtonExit, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jToggleButtonPaths, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap())))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCreateMine)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jToggleButtonExit)
-                        .addGap(18, 18, 18)
-                        .addComponent(jToggleButtonDeposits)
-                        .addGap(50, 50, 50)
-                        .addComponent(jToggleButtonPaths)
-                        .addGap(0, 121, Short.MAX_VALUE))
-                    .addComponent(panelMineCreator, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(panelMineCreator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(btnCreateMine)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButtonDepositsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonDepositsActionPerformed
-        ToogleButtonAction(2, jToggleButtonDeposits);
-    }//GEN-LAST:event_jToggleButtonDepositsActionPerformed
-
-    private void jToggleButtonPathsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonPathsActionPerformed
-         ToogleButtonAction(3, jToggleButtonPaths);
-    }//GEN-LAST:event_jToggleButtonPathsActionPerformed
-
-    private void jToggleButtonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonExitActionPerformed
-         ToogleButtonAction(1, jToggleButtonExit);
-    }//GEN-LAST:event_jToggleButtonExitActionPerformed
-
     private void btnCreateMineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateMineActionPerformed
-        frame = new IndexFrame();
-        frame.setVisible(true);
+        setFrame(new IndexFrame());
+        getFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCreateMineActionPerformed
 
     private void loadMap(int rows, int columns) {
         panelMineCreator.setLocation(100, 50);
-        panelMineCreator.setPreferredSize(new Dimension(500, 500));
+        panelMineCreator.setPreferredSize(new Dimension(550, 700));
         panelMineCreator.setBackground(Color.GRAY);
         //establecer tamaño por defecto de la cuadricula aqui
-        panelMineCreator.setRowsCol(10, 10);
+        panelMineCreator.setRowsCol(20, 20);
     }
 
-    private void loadButtons() {
-        buttons.add(jToggleButtonExit);
-        buttons.add(jToggleButtonDeposits);
-        buttons.add(jToggleButtonPaths);
-    }
+//    private void loadButtons() {
+//        getButtons().add(jToggleButtonExit);
+//        getButtons().add(jToggleButtonDeposits);
+//        getButtons().add(jToggleButtonPaths);
+//    }
 
     private void deSelectButtons(JToggleButton btn) {
-        for (JToggleButton littlebutton : buttons) {
+        for (JToggleButton littlebutton : getButtons()) {
             if (!littlebutton.equals(btn)) {
                 littlebutton.setSelected(false);
             }
@@ -178,7 +166,7 @@ public class MineFrame extends javax.swing.JFrame {
     }
 
     private boolean isSomeoneSelected() {
-        for (JToggleButton boton : buttons) {
+        for (JToggleButton boton : getButtons()) {
             if (boton.isSelected()) {
                 return true;
             }
@@ -221,6 +209,10 @@ public class MineFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -232,9 +224,7 @@ public class MineFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreateMine;
-    private javax.swing.JToggleButton jToggleButtonDeposits;
-    private javax.swing.JToggleButton jToggleButtonExit;
-    private javax.swing.JToggleButton jToggleButtonPaths;
     private view.PanelMineCreator panelMineCreator;
     // End of variables declaration//GEN-END:variables
+
 }
