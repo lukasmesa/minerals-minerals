@@ -11,15 +11,19 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.LinkedList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.OverlayLayout;
 
 /**
  *
  * @author unalman
  */
-public class PanelMineCreator extends javax.swing.JPanel {
+public class PanelMineCreator extends javax.swing.JPanel implements ActionListener {
 
     /**
      * Creates new form PanelMineCreator
@@ -31,31 +35,19 @@ public class PanelMineCreator extends javax.swing.JPanel {
     private boolean paintable;
     private Node mapparttopaint;
     private Mine mine;
+    private JPopupMenu menuOpciones;//formularios con las multiples opciones para manipular la aplicacion
+    private JMenuItem itemEntradaSalida;
+    private JMenuItem itemDeposito;
+    private JMenuItem itemCamino;
 
     public PanelMineCreator() {
         initComponents();
-        cellsize = 25;
-        optionselected = 0;
-        paintable = false;
+        this.cellsize = 25;
+        this.optionselected = 0;
+        this.paintable = false;
+        this.menuOpciones = new JPopupMenu("Opciones De Creación");
+        this.optionsMenu();
         setLayout(new OverlayLayout(this));
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (mine != null) {
-            Node current;
-            for (int i = 0; i < heightMine; i++) {
-                for (int j = 0; j < widthMine; j++) {
-                    Rectangle space = new Rectangle(j * cellsize, i * cellsize, cellsize, cellsize);
-                    current = new Node(space, i, j);
-                    mine.addMapPart(current);
-                    g.setColor(Color.BLACK);
-                    g.drawRect(space.x, space.y, space.width, space.height);
-                }
-            }
-
-        }
     }
 
     public int getHeightMine() {
@@ -74,24 +66,12 @@ public class PanelMineCreator extends javax.swing.JPanel {
         this.widthMine = w;
     }
 
-    public void setRowsCol(int w, int h) {
-        this.widthMine = w;
-        this.heightMine = h;
-        mine = new Mine(heightMine, widthMine);
-        //this.matriz=new Matriz(ancho, alto);
+    public int getCellsize() {
+        return cellsize;
     }
 
-    private Node getClickedSpace(Point clickCoordinates) {
-        Node n;
-        for (int i = 0; i < widthMine; i++) {
-            for (int j = 0; j < heightMine; j++) {
-                if (mine.getMapNodeSpace(i, j).contains(clickCoordinates)) {
-                    n = mine.getElementinPosition(i, j);
-                    return n;
-                }
-            }
-        }
-        return null;
+    public void setCellsize(int cellsize) {
+        this.cellsize = cellsize;
     }
 
     public int getOptionselected() {
@@ -110,15 +90,120 @@ public class PanelMineCreator extends javax.swing.JPanel {
         this.paintable = paintable;
     }
 
+    public Node getMapparttopaint() {
+        return mapparttopaint;
+    }
+
+    public void setMapparttopaint(Node mapparttopaint) {
+        this.mapparttopaint = mapparttopaint;
+    }
+
+    public Mine getMine() {
+        return mine;
+    }
+
+    public void setMine(Mine mine) {
+        this.mine = mine;
+    }
+
+    public JPopupMenu getMenuOpciones() {
+        return menuOpciones;
+    }
+
+    public void setMenuOpciones(JPopupMenu menuOpciones) {
+        this.menuOpciones = menuOpciones;
+    }
+
+    /**
+     * @return the itemEntradaSalida
+     */
+    public JMenuItem getItemEntradaSalida() {
+        return itemEntradaSalida;
+    }
+
+    /**
+     * @param itemEntradaSalida the itemEntradaSalida to set
+     */
+    public void setItemEntradaSalida(JMenuItem itemEntradaSalida) {
+        this.itemEntradaSalida = itemEntradaSalida;
+    }
+
+    /**
+     * @return the itemDeposito
+     */
+    public JMenuItem getItemDeposito() {
+        return itemDeposito;
+    }
+
+    /**
+     * @param itemDeposito the itemDeposito to set
+     */
+    public void setItemDeposito(JMenuItem itemDeposito) {
+        this.itemDeposito = itemDeposito;
+    }
+
+    /**
+     * @return the itemCamino
+     */
+    public JMenuItem getItemCamino() {
+        return itemCamino;
+    }
+
+    /**
+     * @param itemCamino the itemCamino to set
+     */
+    public void setItemCamino(JMenuItem itemCamino) {
+        this.itemCamino = itemCamino;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (getMine() != null) {
+            Node current;
+            for (int i = 0; i < getHeightMine(); i++) {
+                for (int j = 0; j < getWidthMine(); j++) {
+                    Rectangle space = new Rectangle(j * getCellsize(), i * getCellsize(), getCellsize(), getCellsize());
+                    current = new Node(space, i, j);
+                    getMine().addMapPart(current);
+                    g.setColor(Color.BLACK);
+                    g.drawRect(space.x, space.y, space.width, space.height);
+                }
+            }
+
+        }
+    }
+
+    public void setRowsCol(int w, int h) {
+        setHeightMine(h);
+        setWidthMine(w);
+        setMine(new Mine(getHeightMine(), getWidthMine()));
+        //this.matriz=new Matriz(ancho, alto);
+    }
+
+    private Node getClickedSpace(Point clickCoordinates) {
+        Node n;
+        for (int i = 0; i < getWidthMine(); i++) {
+            for (int j = 0; j < getHeightMine(); j++) {
+                if (getMine().getMapNodeSpace(i, j).contains(clickCoordinates)) {
+                    n = getMine().getElementinPosition(i, j);
+                    return n;
+                }
+            }
+        }
+        return null;
+    }
+
     public void paintSpace(Node tobecolored) {
-        if (tobecolored != null && paintable) {
+        System.out.println("paintSpace");
+        if (tobecolored != null && isPaintable()) {
             JLabel label = new JLabel();
             label.setBounds(tobecolored.getSpace());
             if (getComponentAt(tobecolored.getX(), tobecolored.getY()) != null) {
                 remove(getComponentAt(tobecolored.getX(), tobecolored.getY()));
             }
 
-            switch (optionselected) {
+            switch (getOptionselected()) {
                 case 0:
                     repaint(tobecolored.getSpace());
                     return;
@@ -145,7 +230,53 @@ public class PanelMineCreator extends javax.swing.JPanel {
 
     public Node getNode(int i, int j) {
 
-        return mine.getElementinPosition(i, j);
+        return getMine().getElementinPosition(i, j);
+    }
+
+    /**
+     * Descripción del método.
+     *
+     */
+    public void createMineEntry() {
+        //your code
+    }
+
+    /**
+     * Crea el menú con las opciones que se ofrecen al usuario para crear la mina
+     *
+     */
+    private void optionsMenu() {
+        System.out.println("OptionsMenu created");
+
+        if (getMenuOpciones() != null) {
+            getMenuOpciones().removeAll();
+            setItemEntradaSalida(new JMenuItem("Agregar Entrada"));
+            getItemEntradaSalida().addActionListener(this);
+            setItemDeposito(new JMenuItem("Agregar Deposito"));
+            getItemDeposito().addActionListener(this);
+            setItemCamino(new JMenuItem("Agregar Camino"));
+            getItemCamino().addActionListener(this);
+            getMenuOpciones().add(itemEntradaSalida);
+            getMenuOpciones().add(itemDeposito);
+            getMenuOpciones().add(itemCamino);
+        }
+    }
+
+    /**
+     * Muestra al usuario las opciones disponible para crear la mina
+     *
+     * @param evt evento ocasionado por el cilck del mouse
+     */
+    public void showOptionsMenu(java.awt.event.MouseEvent evt) {
+        System.out.println("getOptionsMenu");
+        System.out.println("Mouse Button: " + evt.getButton());
+
+        if (evt.getButton() == 3) {
+            getMenuOpciones().show(this, evt.getX(), evt.getY());
+            this.repaint();
+        } else if (evt.getButton() != 3) {
+            JOptionPane.showMessageDialog(this, "Debe usar el click derecho del mouse para editar la mina");
+        }
     }
 
     /**
@@ -177,57 +308,60 @@ public class PanelMineCreator extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
-        if (paintable) {
-            mapparttopaint = getClickedSpace(evt.getPoint());
-            if (mapparttopaint != null) {
-                if (mapparttopaint.getCategory() == 0 && optionselected != 0) {
-
-                    switch (optionselected) {
-                        case 1: {
-                            if (mine.getExit() == null) {
-                                if (mapparttopaint.getX() == 0 || mapparttopaint.getY() == 0 || mapparttopaint.getX() == (mine.getMapX() - 1) || mapparttopaint.getY() == (mine.getMapY() - 1)) {
-                                    mapparttopaint.setCategory(optionselected);
-                                    paintSpace(mapparttopaint);
-                                    mine.setExit(mapparttopaint);
-                                    mine.addMapPart(mapparttopaint);
-                                } else {
-                                    System.out.println("La salida de la mina tiene que estar en sus extremos");
-                                }
-                            } else {
-                                System.out.println("Una mina solo puede tener una salida");
-                            }
-                            break;
-
-                        }
-                        case 2: {
-                            if (mine.getExit() != null) {
-                                mapparttopaint.setCategory(optionselected);
-                                //Oro metal por defecto temporalmente
-                                mine.addDeposit(mapparttopaint, "Oro", 2);
-                                paintSpace(mapparttopaint);
-                                mine.addMapPart(mapparttopaint);
-                            } else {
-                                System.out.println("Para agregar depósitos debe existir una salida primero");
-                            }
-                            break;
-                        }
-                        case 3: {
-                            mapparttopaint.setCategory(optionselected);
-                            paintSpace(mapparttopaint);
-                            mine.addMapPart(mapparttopaint);
-                            break;
-
-                        }
-                    }
-                }
-            } else if (mapparttopaint.getCategory() != 0) {
-                System.out.println("Ocupado");
+        setMapparttopaint(getClickedSpace(evt.getPoint()));
+        if (getMapparttopaint() != null) {
+            setPaintable(true);
+            if (isPaintable()) {
+                showOptionsMenu(evt);
             }
-
-            System.out.println("" + mine.printMap());
         }
-
     }//GEN-LAST:event_formMouseClicked
+
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        System.out.println("Action Performed");
+        if (getMapparttopaint().getCategory() == 0) {
+            if (evt.getSource() == getItemEntradaSalida()) {
+                System.out.println("getItemEntradaSalida");
+                setOptionselected(1);
+                if (getMine().getExit() == null) {
+                    if (getMapparttopaint().getX() == 0 || getMapparttopaint().getY() == 0 || getMapparttopaint().getX() == (getMine().getMapX() - 1) || getMapparttopaint().getY() == (getMine().getMapY() - 1)) {
+                        getMapparttopaint().setCategory(getOptionselected());
+                        paintSpace(getMapparttopaint());
+                        getMine().setExit(getMapparttopaint());
+                        getMine().addMapPart(getMapparttopaint());
+                    } else {
+                        JOptionPane.showMessageDialog(this, "La salida de la mina debe estar en los extremos");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Una mina solo puede tener una salida");
+                }
+            } else if (evt.getSource() == getItemDeposito()) {
+                setOptionselected(2);
+                if (getMine().getExit() != null) {
+                    getMapparttopaint().setCategory(getOptionselected());
+                    //Oro metal por defecto temporalmente
+                    getMine().addDeposit(getMapparttopaint(), "Oro", 2);
+                    paintSpace(getMapparttopaint());
+                    getMine().addMapPart(getMapparttopaint());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Para agregar depósitos debe existir una salida primero");
+                }
+            } else if (evt.getSource() == getItemCamino()) {
+                setOptionselected(3);
+                if (getMine().getExit() != null) {
+                    getMapparttopaint().setCategory(getOptionselected());
+                    paintSpace(getMapparttopaint());
+                    getMine().addMapPart(getMapparttopaint());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Para agregar caminos debe existir una salida primero");
+                }
+            }
+        } else if (getMapparttopaint().getCategory() != 0) {
+            JOptionPane.showMessageDialog(this, "Este espacio ya se encuentra ocupado");
+        }
+        System.out.println("" + getMine().printMap());
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
