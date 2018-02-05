@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JToggleButton;
+import model.Minerals_SA;
 
 /**
  *
@@ -19,7 +20,7 @@ import javax.swing.JToggleButton;
  */
 public class MineFrame extends javax.swing.JFrame {
 
-    private Mine mine;
+    private Minerals_SA mineralsSa;
     private List<JToggleButton> buttons;
     private JFrame frame;
 
@@ -41,17 +42,17 @@ public class MineFrame extends javax.swing.JFrame {
     }
 
     /**
-     * @return the mine
+     * @return the mineralsSa
      */
-    public Mine getMine() {
-        return mine;
+    public Minerals_SA getMineralsSa() {
+        return mineralsSa;
     }
 
     /**
-     * @param mine the mine to set
+     * @param mineralsSa the mineralsSa to set
      */
-    public void setMine(Mine mine) {
-        this.mine = mine;
+    public void setMineralsSa(Minerals_SA mineralsSa) {
+        this.mineralsSa = mineralsSa;
     }
 
     /**

@@ -4,6 +4,7 @@
  */
 package model;
 
+
 /**
  *
  * @author unalman
@@ -31,7 +32,6 @@ public class Matrix {
     public Node[][] getMatrix() {
         return matrix;
     }
-    
 
     //Metodo para agregar nodos a la matriz, mira que la posición esté vacia antes de agregar
     //y que la posición que le ingresa se encuentre dentro del tamaño de la matriz(posiblemente removerlo a futuro)
