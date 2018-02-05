@@ -23,6 +23,14 @@ public class Node {
     private boolean inRoute;
     private int cost;
 
+    public Node() {
+        this.space = new Rectangle();
+        this.x = 0;
+        this.y = 0;
+        this.category = 0;
+        this.neighbors = new LinkedList<Node>();
+        this.inRoute = false;
+    }
     //Constructor para dibujar
     public Node(Rectangle space, int x, int y) {
         this.space = space;

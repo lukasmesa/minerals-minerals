@@ -5,6 +5,8 @@
  */
 package view;
 
+import model.Minerals_SA;
+
 /**
  * Insert class description here
  *
@@ -12,7 +14,8 @@ package view;
  * @version Nov 6, 2017
  */
 public class IndexFrame extends javax.swing.JFrame {
-
+    
+    private Minerals_SA mineralsSa;
 
     public IndexFrame() {
         initComponents();
@@ -107,6 +110,20 @@ public class IndexFrame extends javax.swing.JFrame {
 
     private void opcionPredeterminda() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the mineralsSa
+     */
+    public Minerals_SA getMineralsSa() {
+        return mineralsSa;
+    }
+
+    /**
+     * @param mineralsSa the mineralsSa to set
+     */
+    public void setMineralsSa(Minerals_SA mineralsSa) {
+        this.mineralsSa = mineralsSa;
     }
 
 }

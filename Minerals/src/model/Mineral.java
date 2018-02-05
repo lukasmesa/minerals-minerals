@@ -10,12 +10,11 @@ package model;
  * @author unalman
  */
 public class Mineral {
+
     private String name;
-    private int timetoextract;
-    
-    public Mineral(String name)
-    {
-        this.name=name;
+
+    public Mineral(String name) {
+        this.name = name;
     }
 
     public void setName(String name) {
@@ -26,13 +25,4 @@ public class Mineral {
         return name;
     }
 
-    public void setTimetoextract(int timetoextract) {
-        this.timetoextract = timetoextract;
-    }
-
-    public int getTimetoextract() {
-        return timetoextract;
-    }
-    
-    
 }

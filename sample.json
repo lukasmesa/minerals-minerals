@@ -1,0 +1,131 @@
+{
+      "infoMineros":
+        [
+          {"totalMineros": 70},
+          {"totalMinerosOro": 30},
+          {"totalMinerosPlata": 10},
+          {"totalMinerosCobre": 20},
+          {"totalMinerosComodin": 10}
+        ],
+        "infoMinas":
+        [
+          {"capacidadCargaOro": 3},
+          {"capacidadCargaPlata": 3},
+          {"capacidadCargaCobre": 2},
+          {"unidadCapacidadCarga": "kg"},
+          {"gananciaOro": 30},
+          {"gananciaPlata": 15},
+          {"gananciaCobre": 5}
+        ],
+        "minas":
+        {
+          "0":
+          [
+          {"tipoMineral": "oro"},
+          {"capacidadMineros": 30},
+          {"capacidadDeposito": 500},
+          {"unidadCapacidad": "kg"},
+          {"tiempoExtraccion": 0.2},
+          {"unidadTiempo": "segundos"},
+          {"velocidadDesplazamiento": 40},
+          {"unidadVelocidad": "m/s"},
+          {"ancho": 5},
+          {"largo": 7},
+          {"entradaMina":
+            [
+            {"x":1},
+            {"y":1}
+            ]
+          },
+          {
+            "seccionesMina":
+             {
+              "0":
+                [
+                {"tipo": "T"},
+                {"x": 1},
+                {"y": 1}
+                ],
+              "1":
+                [
+                {"tipo": "D"},
+                {"x": 1},
+                {"y": 2}
+                ]
+             }
+          }
+          ],
+          "1":
+          [
+          {"tipoMineral": "plata"},
+          {"capacidadMineros": 30},
+          {"capacidadDeposito": 500},
+          {"unidadCapacidad": "kg"},
+          {"tiempoExtraccion": 0.2},
+          {"unidadTiempo": "segundos"},
+          {"velocidadDesplazamiento": 40},
+          {"unidadVelocidad": "m/s"},
+          {"ancho": 5},
+          {"largo": 7},
+          {"entradaMina":
+            [
+            {"x":1},
+            {"y":1}
+            ]
+          },
+          {
+            "seccionesMina":
+             {
+              "0":
+                [
+                {"tipo": "T"},
+                {"x": 1},
+                {"y": 1}
+                ],
+              "1":
+                [
+                {"tipo": "D"},
+                {"x": 1},
+                {"y": 2}
+                ]
+             }
+          }
+          ],
+          "2":
+          [
+          {"tipoMineral": "cobre"},
+          {"capacidadMineros": 30},
+          {"capacidadDeposito": 500},
+          {"unidadCapacidad": "kg"},
+          {"tiempoExtraccion": 0.2},
+          {"unidadTiempo": "segundos"},
+          {"velocidadDesplazamiento": 40},
+          {"unidadVelocidad": "m/s"},
+          {"ancho": 5},
+          {"largo": 7},
+          {"entradaMina":
+            [
+            {"x":1},
+            {"y":1}
+            ]
+          },
+          {
+            "seccionesMina":
+             {
+              "0":
+                [
+                {"tipo": "T"},
+                {"x": 1},
+                {"y": 1}
+                ],
+              "1":
+                [
+                {"tipo": "D"},
+                {"x": 1},
+                {"y": 2}
+                ]
+             }
+          }
+          ]
+        }
+}

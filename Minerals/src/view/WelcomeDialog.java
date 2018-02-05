@@ -6,11 +6,16 @@
 package view;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import model.Mine;
+import model.Minerals_SA;
 
 /**
  * Insert class description here
@@ -23,6 +28,7 @@ public class WelcomeDialog extends JPanel {
     private JFrame mineFrame;
     private int opcionSelecionada;
     private int tipoMineral;
+    private IndexFrame indexFrame;
 
     public WelcomeDialog() {
         this.tipoMineral = -1;
@@ -152,12 +158,25 @@ public class WelcomeDialog extends JPanel {
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JSON Documents", "json");
         chooser.setFileFilter(filter);
+        Minerals_SA minerals = null;
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            //System.out.println("You chose to open this file:" + chooser.getSelectedFile().getName());
-            leerArchivo(chooser.getSelectedFile());
-            setMineFrame(new IndexFrame());
-            getMineFrame().setVisible(true);
+            JSON_Reader leer = new JSON_Reader();
+            try {
+                minerals = leer.leer(chooser.getSelectedFile());
+            } catch (IOException ex) {
+                Logger.getLogger(WelcomeDialog.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //System.out.println("You chose to open this file:" + chooser.getSelectedFile().getName());            
+            setIndexFrame(new IndexFrame());
+            if (minerals != null) {
+                getIndexFrame().setMineralsSa(minerals);
+            }            
+            getIndexFrame().setVisible(true);
+            System.out.println(getIndexFrame().getMineralsSa().toString());
+            for (Mine mine : getIndexFrame().getMineralsSa().getMines()) {
+                mine.printDepositsPosition();
+            }
         }
     }
 
@@ -199,6 +218,20 @@ public class WelcomeDialog extends JPanel {
                 WelcomeDialog bienvenida = new WelcomeDialog();
             }
         });
+    }
+
+    /**
+     * @return the indexFrame
+     */
+    public IndexFrame getIndexFrame() {
+        return indexFrame;
+    }
+
+    /**
+     * @param indexFrame the indexFrame to set
+     */
+    public void setIndexFrame(IndexFrame indexFrame) {
+        this.indexFrame = indexFrame;
     }
 
 }
