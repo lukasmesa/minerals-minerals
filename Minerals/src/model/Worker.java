@@ -35,20 +35,20 @@ public class Worker {
     private PanelMineCreator panel;
 
     public Worker(PanelMineCreator p) {
-        this.panel = p;
-        this.touchNodes = 0;
-        this.going = true;
+        PanelMineCreator panel = p;
+        touchNodes = 0;
+        going = true;
         try {
             image = ImageIO.read(new File("src/Resources/pordefecto.png"));
-            this.timer = new Timer(60, new ActionListener() {
+            Timer timer = new Timer(60, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     move();
 
                 }
             });
-            this.timer.setRepeats(true);
-            this.timer.setCoalesce(true);
+            timer.setRepeats(true);
+            timer.setCoalesce(true);
         } catch (IOException ex) {
             Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -174,4 +174,5 @@ public class Worker {
     public boolean isRunning() {
         return timer.isRunning();
     }
+
 }

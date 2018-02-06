@@ -309,7 +309,7 @@ public class JSON_Reader {
 //                    System.out.println("largo:" + String.valueOf(lengthMine != 0));
 
                     if (!mineralType.equalsIgnoreCase("nulo") && minersCapacity != 0 && depositCapacity != 0 && timeExtraction != 0 && !timeUnit.equalsIgnoreCase("nulo") && displacementSpeed != 0 && !speedUnit.equalsIgnoreCase("nulo") && widthMine != 0 && lengthMine != 0) {
-                        Mine current = new Mine(mineralType, minersCapacity, depositCapacity, timeExtraction, timeUnit, displacementSpeed, speedUnit, lengthMine, widthMine);
+                        Mine current = new Mine(mineralType, minersCapacity, depositCapacity, timeExtraction, timeUnit, displacementSpeed, speedUnit, widthMine, lengthMine);
 //                        Node currentNode;
 //                        for (int i = 0; i < lengthMine; i++) {
 //                            for (int j = 0; j < widthMine; j++) {
@@ -348,7 +348,6 @@ public class JSON_Reader {
      * @param mineIndex
      */
     public void addMineSectors(JSONArray jsonMinaCompleta, Minerals_SA entreprise, int mineIndex) {
-        System.out.println("Tamaño X:" + entreprise.getMines().get(mineIndex).getMapX()+ " tamaño Y: "+ entreprise.getMines().get(mineIndex).getMapY());
         for (Object mina : jsonMinaCompleta) {
             JSONObject jsonMina = (JSONObject) mina;
             if (jsonMina.containsKey("entradaMina")) {
@@ -364,7 +363,7 @@ public class JSON_Reader {
                         yExit = Integer.parseInt(String.valueOf(jsonEntrada.get("y")));
                     }
                     if (xExit != -1 && yExit != -1) {
-                        entreprise.getMines().get(mineIndex).setExitWithPosition(yExit, xExit);
+                        entreprise.getMines().get(mineIndex).setExitWithPosition(xExit, yExit);
                     }
                 }
             } else if (jsonMina.containsKey("seccionesMina")) {
@@ -387,7 +386,7 @@ public class JSON_Reader {
                             yCurrent = Integer.parseInt(String.valueOf(jsonSeccion.get("y")));
                         }
                         if (xCurrent != -1 && yCurrent != -1 && !type.equals("")) {
-                            Node currentNode = entreprise.getMines().get(mineIndex).getElementinPosition(yCurrent, xCurrent);
+                            Node currentNode = entreprise.getMines().get(mineIndex).getElementinPosition(xCurrent, yCurrent);
                             if (currentNode != null) {
                                 if (type.equalsIgnoreCase("T")) {
                                     currentNode.setCategory(3);
@@ -399,6 +398,7 @@ public class JSON_Reader {
                                 yCurrent = -1;
                                 type = "";
                             }
+
                         }
                     }
                 }

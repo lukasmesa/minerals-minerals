@@ -2,6 +2,20 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/view/PanelMainFrame.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Deposit.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Mine.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Mineral.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Node.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/view/JSON_Reader.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Matrix.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/view/WelcomeDialog.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Minerals_SA.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Profit.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/view/PanelMineCreator.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/view/MainFrame.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/view/MineFrame.java</file>
+        </group>
     </open-files>
 </project-private>

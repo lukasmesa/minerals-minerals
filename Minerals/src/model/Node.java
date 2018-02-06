@@ -23,6 +23,7 @@ public class Node {
     private boolean inRoute;
     private int cost;
     private Node predecessor;
+    
 
     public Node() {
         this.space = new Rectangle();
@@ -31,9 +32,8 @@ public class Node {
         this.category = 0;
         this.neighbors = new LinkedList<Node>();
         this.inRoute = false;
-        this.predecessor = null;
+        this.predecessor=null;
     }
-
     //Constructor para dibujar
     public Node(Rectangle space, int x, int y) {
         this.space = space;
@@ -42,7 +42,7 @@ public class Node {
         this.category = 0;
         this.neighbors = new LinkedList<Node>();
         this.inRoute = false;
-        this.predecessor = null;
+        this.predecessor=null;
     }
 
     public Rectangle getSpace() {
@@ -69,10 +69,16 @@ public class Node {
         return y;
     }
 
+    public void addNeighbor(Node current) {
+        if (current.getCategory() != 0) {
+            getNeighbors().add(current);
+        }
+    }
+
     public boolean isInroute() {
         return isInRoute();
     }
-
+    
     public void setInRoute(boolean value) {
         this.inRoute = value;
     }
@@ -120,23 +126,14 @@ public class Node {
         return inRoute;
     }
 
-    /**
-     * @return the predecessor
-     */
-    public Node getPredecessor() {
-        return predecessor;
-    }
-
-    /**
-     * @param predecessor the predecessor to set
-     */
     public void setPredecessor(Node predecessor) {
         this.predecessor = predecessor;
     }
-    
-    public void addNeighbor(Node current) {
-        if (current.getCategory() != 0) {
-            getNeighbors().add(current);
-        }
+
+    public Node getPredecessor() {
+        return predecessor;
     }
+    
+    
+
 }
