@@ -15,8 +15,8 @@ public class Matrix {
     private int columns;    
 
     public Matrix(int rows, int columns) {
-        this.columns = columns;
         this.rows = rows;
+        this.columns = columns;        
         matrix = new Node[rows][columns];
     }
 
@@ -116,7 +116,6 @@ public class Matrix {
         }
     }
 
-    
     /**
      * @param matrix the matrix to set
      */

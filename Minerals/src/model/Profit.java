@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 /**
  * Insert class description here
+ *
  * @author Lukas
  * @version Feb 5, 2018
  */
 public class Profit {
-    
+
     private double quantity;
     private int specialists;
     private int jokers;
@@ -67,7 +67,4 @@ public class Profit {
     public void setJokers(int jokers) {
         this.jokers = jokers;
     }
-    
-    
-
 }
