@@ -23,18 +23,23 @@ public class Mine {
     private String timeUnit;
     private int displacementSpeed;
     private String speedUnit;
+    private LinkedList<Profit> profits;
     private Node exit;
     private LinkedList<Worker> workers;
-    
-    
-    public Mine(int width, int height) {
-        map = new Matrix(width, height);
-        deposits = new LinkedList<>();
+
+    public Mine(int rows, int columns) {
+        this.map = new Matrix(rows, columns);
+        this.deposits = new LinkedList<>();
+        this.profits = new LinkedList<>();
+        this.workers = new LinkedList<>();
+
     }
 
     public Mine(String mineral, int minersCapacity, int depositCapacity, double timeExtraction, String timeUnit, int displacementSpeed, String speedUnit, int width, int length) {
         this.deposits = new LinkedList<>();
-        this.map = new Matrix(length, width);
+        this.profits = new LinkedList<>();
+        this.workers = new LinkedList<>();
+        this.map = new Matrix(rows, columns);
         this.mineral = mineral;
         this.minersCapacity = minersCapacity;
         this.depositCapacity = depositCapacity;
@@ -205,10 +210,22 @@ public class Mine {
         return path;
     }
 
-    
-
     public void addDeposit(Node n, String mineral, int quantity) {
+        System.out.println(n.getCategory() + " " + mineral + " " + quantity);
         getDeposits().add(new Deposit(n, mineral, quantity));
+    }
+  
+    public int depositsPerType(int type) {
+        int depositsType = 0;
+        if (getDeposits().size() > 0) {
+            for (Deposit deposit : deposits) {
+                if (deposit.getNode().getCategory() == type) {
+                    depositsType++;
+                }
+            }
+            return depositsType;
+        }
+        return depositsType;
     }
 
     public void printDepositsPosition() {
@@ -258,4 +275,40 @@ public class Mine {
         this.mineral = mineral;
     }
 
+    /**
+     * @return the profits
+     */
+    public LinkedList<Profit> getProfits() {
+        return profits;
+    }
+
+    /**
+     * @param profits the profits to set
+     */
+    public void setProfits(LinkedList<Profit> profits) {
+        this.profits = profits;
+    }    
+    
+    /**
+     * @return the workers
+     */
+    public LinkedList<Worker> getWorkers() {
+        return workers;
+    }
+
+    /**
+     * @param workers the workers to set
+     */
+    public void setWorkers(LinkedList<Worker> workers) {
+        this.workers = workers;
+    }
+
+    public String showProfits() {
+        String cadena = "";
+        System.out.println(getProfits().size());
+        for (Profit profit : getProfits()) {
+            cadena = cadena + profit.getQuantity() + " E: " + profit.getSpecialists() + " C: " + profit.getJokers() + " - ";
+        }
+        return cadena;
+    }
 }
