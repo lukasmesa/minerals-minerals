@@ -35,7 +35,7 @@ public class Mine {
 
     }
 
-    public Mine(String mineral, int minersCapacity, int depositCapacity, double timeExtraction, String timeUnit, int displacementSpeed, String speedUnit, int rows, int columns) {
+    public Mine(String mineral, int minersCapacity, int depositCapacity, double timeExtraction, String timeUnit, int displacementSpeed, String speedUnit, int width, int length) {
         this.deposits = new LinkedList<>();
         this.profits = new LinkedList<>();
         this.workers = new LinkedList<>();
@@ -48,8 +48,8 @@ public class Mine {
         this.displacementSpeed = displacementSpeed;
         this.speedUnit = speedUnit;
         Node currentNode;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < width; j++) {
                 Rectangle space = new Rectangle();
                 currentNode = new Node(space, i, j);
                 this.addMapSector(currentNode);
@@ -203,7 +203,7 @@ public class Mine {
     }
 
     public LinkedList<Node> findPath(Node deposit) {
-        LinkedList<Node> path = new LinkedList<>();
+        LinkedList<Node>path=new LinkedList<Node>();
         if (deposit != null) {
             map.fillNeighbors();
         }
@@ -214,7 +214,7 @@ public class Mine {
         System.out.println(n.getCategory() + " " + mineral + " " + quantity);
         getDeposits().add(new Deposit(n, mineral, quantity));
     }
-
+  
     public int depositsPerType(int type) {
         int depositsType = 0;
         if (getDeposits().size() > 0) {
@@ -231,7 +231,7 @@ public class Mine {
     public void printDepositsPosition() {
         String c = "[";
         for (Deposit d : getDeposits()) {
-            c += "Deposito en pos [" + d.getPosX() + ", " + d.getPosY() + ", categoría: " + d.getNode().getCategory() + "], ";
+            c += "Deposito en pos [" + d.getPosX() + ", " + d.getPosY() + "], ";
         }
         c += "]";
         System.out.println("Depositos: " + c);
@@ -242,11 +242,11 @@ public class Mine {
     }
 
     public int getMapX() {
-        return getMap().getColumns();
+        return getMap().getRows();
     }
 
     public int getMapY() {
-        return getMap().getRows();
+        return getMap().getColumns();
     }
 
     /**

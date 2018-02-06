@@ -22,6 +22,8 @@ public class Node {
     private LinkedList<Node> neighbors;
     private boolean inRoute;
     private int cost;
+    private Node predecessor;
+    
 
     public Node() {
         this.space = new Rectangle();
@@ -30,6 +32,7 @@ public class Node {
         this.category = 0;
         this.neighbors = new LinkedList<Node>();
         this.inRoute = false;
+        this.predecessor=null;
     }
     //Constructor para dibujar
     public Node(Rectangle space, int x, int y) {
@@ -39,6 +42,7 @@ public class Node {
         this.category = 0;
         this.neighbors = new LinkedList<Node>();
         this.inRoute = false;
+        this.predecessor=null;
     }
 
     public Rectangle getSpace() {
@@ -121,5 +125,15 @@ public class Node {
     public boolean isInRoute() {
         return inRoute;
     }
+
+    public void setPredecessor(Node predecessor) {
+        this.predecessor = predecessor;
+    }
+
+    public Node getPredecessor() {
+        return predecessor;
+    }
+    
+    
 
 }
