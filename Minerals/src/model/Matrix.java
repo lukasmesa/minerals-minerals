@@ -12,10 +12,10 @@ package model;
 public class Matrix {
 
     private Node[][] matrix;
-    private int columns;
     private int rows;
+    private int columns;    
 
-    public Matrix(int columns, int rows) {
+    public Matrix(int rows, int columns) {
         this.columns = columns;
         this.rows = rows;
         matrix = new Node[rows][columns];
@@ -53,9 +53,13 @@ public class Matrix {
 
     public String printMatrixValues() {
         String message = "";
-        for (Node[] nodes : matrix) {
+        for (Node[] nodes : getMatrix()) {
             for (Node current : nodes) {
-                message += current.getCategory() + " ";
+                if (current != null) {
+                    message += current.getCategory() + " ";
+                } else{
+                    message += "-1"+ " ";
+                }                
             }
             message += "\n";
         }
