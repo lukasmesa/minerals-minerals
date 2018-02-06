@@ -13,13 +13,25 @@ import model.Minerals_SA;
  * @author Lukas
  * @version Nov 6, 2017
  */
-public class IndexFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame {
     
+    private MineFrame mineFrame;
     private Minerals_SA mineralsSa;
 
-    public IndexFrame() {
+    public MainFrame() {
         initComponents();
     }
+    
+    public  MainFrame(MineFrame mFrame){
+        this.mineFrame = mFrame;
+        initComponents();
+    }
+    
+    public MainFrame (Minerals_SA minerals){
+        this.mineralsSa = minerals;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,6 +42,7 @@ public class IndexFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelMainFrame = new view.PanelMainFrame();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
@@ -37,6 +50,17 @@ public class IndexFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Minerals & Minerals");
+
+        javax.swing.GroupLayout panelMainFrameLayout = new javax.swing.GroupLayout(panelMainFrame);
+        panelMainFrame.setLayout(panelMainFrameLayout);
+        panelMainFrameLayout.setHorizontalGroup(
+            panelMainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 718, Short.MAX_VALUE)
+        );
+        panelMainFrameLayout.setVerticalGroup(
+            panelMainFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 376, Short.MAX_VALUE)
+        );
 
         jMenu1.setText("File");
 
@@ -54,11 +78,17 @@ public class IndexFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(panelMainFrame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 424, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelMainFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -82,21 +112,22 @@ public class IndexFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IndexFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IndexFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IndexFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IndexFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new IndexFrame().setVisible(true);
+                new MainFrame().setVisible(true);
             }
         });
     }
@@ -106,6 +137,7 @@ public class IndexFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private view.PanelMainFrame panelMainFrame;
     // End of variables declaration//GEN-END:variables
 
     private void opcionPredeterminda() {
@@ -125,5 +157,35 @@ public class IndexFrame extends javax.swing.JFrame {
     public void setMineralsSa(Minerals_SA mineralsSa) {
         this.mineralsSa = mineralsSa;
     }
+
+    /**
+     * @return the panelMainFrame
+     */
+    public PanelMainFrame getPanelMainFrame() {
+        return panelMainFrame;
+    }
+
+    /**
+     * @param panelMainFrame the panelMainFrame to set
+     */
+    public void setPanelMainFrame(PanelMainFrame panelMainFrame) {
+        this.panelMainFrame = panelMainFrame;
+    }
+
+    /**
+     * @return the mineFrame
+     */
+    public MineFrame getMineFrame() {
+        return mineFrame;
+    }
+
+    /**
+     * @param mineFrame the mineFrame to set
+     */
+    public void setMineFrame(MineFrame mineFrame) {
+        this.mineFrame = mineFrame;
+    }
+    
+    
 
 }

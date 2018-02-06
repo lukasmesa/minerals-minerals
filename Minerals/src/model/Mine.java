@@ -23,16 +23,18 @@ public class Mine {
     private String timeUnit;
     private int displacementSpeed;
     private String speedUnit;
+    private LinkedList<Profit> profits;
     private Node exit;
 
-    public Mine(int width, int height) {
-        map = new Matrix(width, height);
+    public Mine(int rows, int columns) {
+        map = new Matrix(rows, columns);
         deposits = new LinkedList<>();
     }
 
-    public Mine(String mineral, int minersCapacity, int depositCapacity, double timeExtraction, String timeUnit, int displacementSpeed, String speedUnit, int width, int length) {
+    public Mine(String mineral, int minersCapacity, int depositCapacity, double timeExtraction, String timeUnit, int displacementSpeed, String speedUnit, int rows, int columns) {
         this.deposits = new LinkedList<>();
-        this.map = new Matrix(length, width);
+        this.profits = new LinkedList<>();
+        this.map = new Matrix(rows, columns);
         this.mineral = mineral;
         this.minersCapacity = minersCapacity;
         this.depositCapacity = depositCapacity;
@@ -41,8 +43,8 @@ public class Mine {
         this.displacementSpeed = displacementSpeed;
         this.speedUnit = speedUnit;
         Node currentNode;
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < width; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
                 Rectangle space = new Rectangle();
                 currentNode = new Node(space, i, j);
                 this.addMapSector(currentNode);
@@ -188,6 +190,7 @@ public class Mine {
         if (getMap().getNode(posrow, poscolumn) != null) {
             getMap().getNode(posrow, poscolumn).setCategory(1);
             setExit(getMap().getNode(posrow, poscolumn));
+            System.out.println(getMap().getNode(posrow, poscolumn).getCategory());
         }
     }
 
@@ -208,13 +211,27 @@ public class Mine {
 //        return estrategia.camino;
 //    }
     public void addDeposit(Node n, String mineral, int quantity) {
+        System.out.println(n.getCategory() + " " + mineral + " " + quantity);
         getDeposits().add(new Deposit(n, mineral, quantity));
+    }
+
+    public int depositsPerType(int type) {
+        int depositsType = 0;
+        if (getDeposits().size() > 0) {
+            for (Deposit deposit : deposits) {
+                if (deposit.getNode().getCategory() == type) {
+                    depositsType++;
+                }
+            }
+            return depositsType;
+        }
+        return depositsType;
     }
 
     public void printDepositsPosition() {
         String c = "[";
         for (Deposit d : getDeposits()) {
-            c += "Deposito en pos [" + d.getPosX() + ", " + d.getPosY() + "], ";
+            c += "Deposito en pos [" + d.getPosX() + ", " + d.getPosY() + ", categoría: " + d.getNode().getCategory() + "], ";
         }
         c += "]";
         System.out.println("Depositos: " + c);
@@ -225,11 +242,11 @@ public class Mine {
     }
 
     public int getMapX() {
-        return getMap().getRows();
+        return getMap().getColumns();
     }
 
     public int getMapY() {
-        return getMap().getColumns();
+        return getMap().getRows();
     }
 
     /**
@@ -256,6 +273,29 @@ public class Mine {
      */
     public void setMineral(String mineral) {
         this.mineral = mineral;
+    }
+
+    /**
+     * @return the profits
+     */
+    public LinkedList<Profit> getProfits() {
+        return profits;
+    }
+
+    /**
+     * @param profits the profits to set
+     */
+    public void setProfits(LinkedList<Profit> profits) {
+        this.profits = profits;
+    }
+
+    public String showProfits() {
+        String cadena = "";
+        System.out.println(getProfits().size());
+        for (Profit profit : getProfits()) {
+            cadena = cadena + profit.getQuantity() + " E: " + profit.getSpecialists() + " C: " + profit.getJokers() + " - ";
+        }
+        return cadena;
     }
 
 }

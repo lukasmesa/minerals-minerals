@@ -12,7 +12,7 @@ package model;
 public class Deposit {
 
     private Mineral mineral;
-    public Node node;
+    private Node node;
     private int quantity;
 
     public Deposit(Node internalnode, String min, int value) {
@@ -22,19 +22,53 @@ public class Deposit {
     }
 
     public int getPosX() {
-        return node.getX();
+        return getNode().getX();
     }
 
     public int getPosY() {
-        return node.getY();
+        return getNode().getY();
     }
 
+    /**
+     * @return the mineral
+     */
     public Mineral getMineral() {
         return mineral;
     }
 
-    public Node getNodo() {
+    /**
+     * @param mineral the mineral to set
+     */
+    public void setMineral(Mineral mineral) {
+        this.mineral = mineral;
+    }
+
+    /**
+     * @return the node
+     */
+    public Node getNode() {
         return node;
+    }
+
+    /**
+     * @param node the node to set
+     */
+    public void setNode(Node node) {
+        this.node = node;
+    }
+
+    /**
+     * @return the quantity
+     */
+    public int getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @param quantity the quantity to set
+     */
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
 }

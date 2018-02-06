@@ -1,14 +1,16 @@
 package model;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 
 /**
  * Insert class description here
+ *
  * @author Lukas
  * @version Feb 4, 2018
  */
 public class Minerals_SA {
-    
+
     private final int totalMiners;
     private final int goldMiners;
     private final int silverMiners;
@@ -22,6 +24,22 @@ public class Minerals_SA {
     private final int silverGain;
     private final int copperGain;
     private LinkedList<Mine> mines;
+
+    public Minerals_SA() {
+        this.totalMiners = 0;
+        this.goldMiners = 0;
+        this.silverMiners = 0;
+        this.copperMiners = 0;
+        this.jokerMiners = 0;
+        this.capacityGold = 0;
+        this.capacitySilver = 0;
+        this.capacityCopper = 0;
+        this.chargeUnit = "";
+        this.goldGain = 0;
+        this.silverGain = 0;
+        this.copperGain = 0;
+        this.mines = new LinkedList<>();
+    }
 
     public Minerals_SA(int totalMiners, int goldMiners, int silverMiners, int copperMiners, int jokerMiners, int capacityGold, int capacitySilver, int capacityCopper, String chargeUnit, int goldGain, int silverGain, int copperGain) {
         this.totalMiners = totalMiners;
@@ -38,8 +56,6 @@ public class Minerals_SA {
         this.copperGain = copperGain;
         this.mines = new LinkedList<>();
     }
-    
-    
 
     /**
      * @return the totalMiners
@@ -137,12 +153,85 @@ public class Minerals_SA {
      */
     public void setMines(LinkedList<Mine> mines) {
         this.mines = mines;
-    }   
+    }
+
+    public void allPossibleProfits() {
+        if (getMines().size() > 0) {
+            for (Mine mine : getMines()) {
+                if (mine.getMineral().equalsIgnoreCase("oro")) {
+                    allProfits(mine, getGoldGain());
+                } else if (mine.getMineral().equalsIgnoreCase("plata")) {
+                    allProfits(mine, getSilverGain());
+                } else if (mine.getMineral().equalsIgnoreCase("cobre")) {
+                    allProfits(mine, getCopperGain());
+//                    for (int i = 0; i < getTotalMiners(); i++) {
+//                    int miners = i;
+//                    while (miners > 0) {
+//                        int possibleProfit = 0;
+//                        if (mine.getMinersCapacity() < miners) {
+//                            int jokers = 0;
+//                            
+//                        }
+//                    }
+//                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Descripción del método.
+     *
+     * @param mine
+     * @param gain
+     */
+    public void allProfits(Mine mine, int gain) {
+        double profit = 0;
+        int mineros = 0;
+        int depositsInMine = mine.depositsPerType(2);
+        int baseProfit = depositsInMine * mine.getDepositCapacity() * gain;
+        System.out.println("Depositos Mina: " + depositsInMine + " Base: "+baseProfit);
+        for (int i = 1; i <= mine.getMinersCapacity(); i++) {
+            mineros = i;
+            //System.out.println(mineros);
+            if (i < depositsInMine) {
+                for (int j = 0; j <= i; j++) {
+                    //System.out.println("Mineros Especialistas: " + mineros);
+                    profit = baseProfit + (800 * mineros) + ((800 * 0.7) * j);
+                    Profit currentProfit = new Profit(profit, mineros, j);
+                    mine.getProfits().add(currentProfit);
+                    mineros--;
+                }
+            } else if (i == depositsInMine) {
+                for (int j = 0; j <= i; j++) {
+                    profit = baseProfit + (950 * mineros) + ((950 * 0.7) * j);
+                    Profit currentProfit = new Profit(profit, mineros, j);
+                    mine.getProfits().add(currentProfit);
+                    mineros--;
+                }
+            } else if (i > depositsInMine) {
+                for (int j = 0; j <= i; j++) {
+                    profit = baseProfit + (250 * mineros) + ((250 * 0.7) * j - (130 * j - (depositsInMine)));
+                    Profit currentProfit = new Profit(profit, mineros, j);
+                    mine.getProfits().add(currentProfit);
+                    mineros--;
+                }
+            }
+        }
+        Comparator<Profit> comparator = (profit1, profit2) -> {
+            return new Double(profit1.getQuantity()).compareTo(profit2.getQuantity());
+        };
+
+        mine.getProfits().sort(comparator.reversed());
+    }
 
     @Override
     public String toString() {
         String cadena = "";
-        cadena = "Minerals S.A: "+getTotalMiners()+" "+getGoldMiners()+" "+getSilverMiners()+" "+getCopperMiners()+" Tiene "+getMines().size()+" minas";        
+        cadena = "Minerals S.A: " + getTotalMiners() + " " + getGoldMiners() + " " + getSilverMiners() + " " + getCopperMiners() + " Tiene " + getMines().size() + " minas" + "\t ganancias por mina: ";
+        for (Mine mine : getMines()) {
+            cadena = cadena + "\n" + getMines().indexOf(mine) + " " + mine.showProfits();
+        }
         return cadena;
     }
 

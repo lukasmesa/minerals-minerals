@@ -355,14 +355,14 @@ public class JSON_Reader {
                 //System.out.println("\tEntrada Mina:");
                 for (Object entrada : entradaMina) {
                     JSONObject jsonEntrada = (JSONObject) entrada;
-                    int xExit = 0;
-                    int yExit = 0;
+                    int xExit = -1;
+                    int yExit = -1;
                     if (jsonEntrada.containsKey("x")) {
                         xExit = Integer.parseInt(String.valueOf(jsonEntrada.get("x")));
                     } else if (jsonEntrada.containsKey("y")) {
                         yExit = Integer.parseInt(String.valueOf(jsonEntrada.get("y")));
                     }
-                    if (xExit != 0 && yExit != 0) {
+                    if (xExit != -1 && yExit != -1) {
                         entreprise.getMines().get(mineIndex).setExitWithPosition(xExit, yExit);
                     }
                 }
@@ -393,7 +393,7 @@ public class JSON_Reader {
                                 } else if (type.equalsIgnoreCase("D")) {
                                     currentNode.setCategory(2);
                                 }
-                                entreprise.getMines().get(mineIndex).addDeposit(currentNode, mineralType, yCurrent);
+                                entreprise.getMines().get(mineIndex).addDeposit(currentNode, mineralType, entreprise.getMines().get(mineIndex).getDepositCapacity());
                                 xCurrent = -1;
                                 yCurrent = -1;
                                 type = "";

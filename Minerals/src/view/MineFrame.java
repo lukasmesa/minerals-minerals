@@ -5,14 +5,12 @@
  */
 package view;
 
-import model.Mine;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JToggleButton;
-import model.Minerals_SA;
 
 /**
  *
@@ -20,7 +18,6 @@ import model.Minerals_SA;
  */
 public class MineFrame extends javax.swing.JFrame {
 
-    private Minerals_SA mineralsSa;
     private List<JToggleButton> buttons;
     private JFrame frame;
 
@@ -40,21 +37,7 @@ public class MineFrame extends javax.swing.JFrame {
         loadMap(20, 20);
         //loadButtons();
     }
-
-    /**
-     * @return the mineralsSa
-     */
-    public Minerals_SA getMineralsSa() {
-        return mineralsSa;
-    }
-
-    /**
-     * @param mineralsSa the mineralsSa to set
-     */
-    public void setMineralsSa(Minerals_SA mineralsSa) {
-        this.mineralsSa = mineralsSa;
-    }
-
+    
     /**
      * @return the buttons
      */
@@ -139,17 +122,17 @@ public class MineFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateMineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateMineActionPerformed
-        setFrame(new IndexFrame());
+        setFrame(new MainFrame());
         getFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCreateMineActionPerformed
 
     private void loadMap(int rows, int columns) {
-        panelMineCreator.setLocation(100, 50);
-        panelMineCreator.setPreferredSize(new Dimension(550, 700));
-        panelMineCreator.setBackground(Color.GRAY);
+        getPanelMineCreator().setLocation(100, 50);
+        getPanelMineCreator().setPreferredSize(new Dimension(550, 700));
+        getPanelMineCreator().setBackground(Color.GRAY);
         //establecer tamaño por defecto de la cuadricula aqui
-        panelMineCreator.setRowsCol(20, 20);
+        getPanelMineCreator().setRowsCol(20, 20);
     }
 
 //    private void loadButtons() {
@@ -177,8 +160,8 @@ public class MineFrame extends javax.swing.JFrame {
 
     private void ToogleButtonAction(int option, JToggleButton btn) {
         deSelectButtons(btn);
-        panelMineCreator.setPaintable(isSomeoneSelected());
-        panelMineCreator.setOptionselected(option);
+        getPanelMineCreator().setPaintable(isSomeoneSelected());
+        getPanelMineCreator().setOptionselected(option);
     }
 
     /**
@@ -227,5 +210,19 @@ public class MineFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCreateMine;
     private view.PanelMineCreator panelMineCreator;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the panelMineCreator
+     */
+    public PanelMineCreator getPanelMineCreator() {
+        return panelMineCreator;
+    }
+
+    /**
+     * @param panelMineCreator the panelMineCreator to set
+     */
+    public void setPanelMineCreator(PanelMineCreator panelMineCreator) {
+        this.panelMineCreator = panelMineCreator;
+    }
 
 }
