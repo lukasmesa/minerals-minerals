@@ -25,15 +25,20 @@ public class Mine {
     private String speedUnit;
     private LinkedList<Profit> profits;
     private Node exit;
+    private LinkedList<Worker> workers;
 
     public Mine(int rows, int columns) {
-        map = new Matrix(rows, columns);
-        deposits = new LinkedList<>();
+        this.map = new Matrix(rows, columns);
+        this.deposits = new LinkedList<>();
+        this.profits = new LinkedList<>();
+        this.workers = new LinkedList<>();
+
     }
 
     public Mine(String mineral, int minersCapacity, int depositCapacity, double timeExtraction, String timeUnit, int displacementSpeed, String speedUnit, int rows, int columns) {
         this.deposits = new LinkedList<>();
         this.profits = new LinkedList<>();
+        this.workers = new LinkedList<>();
         this.map = new Matrix(rows, columns);
         this.mineral = mineral;
         this.minersCapacity = minersCapacity;
@@ -190,7 +195,6 @@ public class Mine {
         if (getMap().getNode(posrow, poscolumn) != null) {
             getMap().getNode(posrow, poscolumn).setCategory(1);
             setExit(getMap().getNode(posrow, poscolumn));
-            System.out.println(getMap().getNode(posrow, poscolumn).getCategory());
         }
     }
 
@@ -198,18 +202,14 @@ public class Mine {
         return getMap().getNode(posrow, poscolumn).getSpace();
     }
 
-//    public LinkedList<Nodo> encontrarCamino(Nodo dep) {
-//        //Retornar aqui lista de nodos entre salida y el deposito mas cercano
-//        //Nodo dep=obtenerDepositoMasCercano();
-//        if (dep != null) {
-//            matriz.llenarVecinos();
-//            estrategia = new EstrategiaCaminoMasCorto(salida, dep, matriz);
-//            estrategia.buscar();
-//            //System.out.println(" "+estrategia.imprimirMatriz());
-//            //System.out.println(""+estrategia.camino);
-//        }
-//        return estrategia.camino;
-//    }
+    public LinkedList<Node> findPath(Node deposit) {
+        LinkedList<Node> path = new LinkedList<>();
+        if (deposit != null) {
+            map.fillNeighbors();
+        }
+        return path;
+    }
+
     public void addDeposit(Node n, String mineral, int quantity) {
         System.out.println(n.getCategory() + " " + mineral + " " + quantity);
         getDeposits().add(new Deposit(n, mineral, quantity));
@@ -287,6 +287,20 @@ public class Mine {
      */
     public void setProfits(LinkedList<Profit> profits) {
         this.profits = profits;
+    }    
+    
+    /**
+     * @return the workers
+     */
+    public LinkedList<Worker> getWorkers() {
+        return workers;
+    }
+
+    /**
+     * @param workers the workers to set
+     */
+    public void setWorkers(LinkedList<Worker> workers) {
+        this.workers = workers;
     }
 
     public String showProfits() {
@@ -297,5 +311,4 @@ public class Mine {
         }
         return cadena;
     }
-
 }
