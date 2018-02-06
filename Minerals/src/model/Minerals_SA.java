@@ -155,6 +155,10 @@ public class Minerals_SA {
         this.mines = mines;
     }
 
+    /**
+     * Calcula todas las posibles ganancias dependiendo del mineral
+     *
+     */
     public void allPossibleProfits() {
         if (getMines().size() > 0) {
             for (Mine mine : getMines()) {
@@ -164,23 +168,14 @@ public class Minerals_SA {
                     allProfits(mine, getSilverGain());
                 } else if (mine.getMineral().equalsIgnoreCase("cobre")) {
                     allProfits(mine, getCopperGain());
-//                    for (int i = 0; i < getTotalMiners(); i++) {
-//                    int miners = i;
-//                    while (miners > 0) {
-//                        int possibleProfit = 0;
-//                        if (mine.getMinersCapacity() < miners) {
-//                            int jokers = 0;
-//                            
-//                        }
-//                    }
-//                    }
                 }
             }
         }
     }
 
     /**
-     * Descripción del método.
+     * En base a los parámetros datos, calcula todas las ganancias para una mina
+     * dada según las restricciones del problema
      *
      * @param mine
      * @param gain
@@ -190,30 +185,35 @@ public class Minerals_SA {
         int mineros = 0;
         int depositsInMine = mine.depositsPerType(2);
         int baseProfit = depositsInMine * mine.getDepositCapacity() * gain;
-        System.out.println("Depositos Mina: " + depositsInMine + " Base: "+baseProfit);
+        System.out.println("Depositos Mina: " + depositsInMine + " Base: " + baseProfit);
         for (int i = 1; i <= mine.getMinersCapacity(); i++) {
             mineros = i;
             //System.out.println(mineros);
             if (i < depositsInMine) {
-                for (int j = 0; j <= i; j++) {
-                    //System.out.println("Mineros Especialistas: " + mineros);
+                int j = 0;
+                while (mineros >= 0) {
                     profit = baseProfit + (800 * mineros) + ((800 * 0.7) * j);
                     Profit currentProfit = new Profit(profit, mineros, j);
                     mine.getProfits().add(currentProfit);
+                    j++;
                     mineros--;
                 }
             } else if (i == depositsInMine) {
-                for (int j = 0; j <= i; j++) {
+                int j = 0;
+                while (mineros >= 0) {
                     profit = baseProfit + (950 * mineros) + ((950 * 0.7) * j);
                     Profit currentProfit = new Profit(profit, mineros, j);
                     mine.getProfits().add(currentProfit);
+                    j++;
                     mineros--;
                 }
             } else if (i > depositsInMine) {
-                for (int j = 0; j <= i; j++) {
-                    profit = baseProfit + (250 * mineros) + ((250 * 0.7) * j - (130 * j - (depositsInMine)));
+                int j = 0;
+                while (mineros >= 0) {
+                    profit = baseProfit + ((250 * mineros) + ((250 * 0.7) * j)) - (130 *((mineros + j) - depositsInMine));
                     Profit currentProfit = new Profit(profit, mineros, j);
                     mine.getProfits().add(currentProfit);
+                    j++;
                     mineros--;
                 }
             }
@@ -221,7 +221,6 @@ public class Minerals_SA {
         Comparator<Profit> comparator = (profit1, profit2) -> {
             return new Double(profit1.getQuantity()).compareTo(profit2.getQuantity());
         };
-
         mine.getProfits().sort(comparator.reversed());
     }
 

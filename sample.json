@@ -1,11 +1,11 @@
 {
       "infoMineros":
         [
-          {"totalMineros": 70},
-          {"totalMinerosOro": 30},
-          {"totalMinerosPlata": 10},
-          {"totalMinerosCobre": 20},
-          {"totalMinerosComodin": 10}
+          {"totalMineros": 30},
+          {"totalMinerosOro": 8},
+          {"totalMinerosPlata": 15},
+          {"totalMinerosCobre": 3},
+          {"totalMinerosComodin": 4}
         ],
         "infoMinas":
         [
@@ -95,12 +95,12 @@
           {"unidadTiempo": "segundos"},
           {"velocidadDesplazamiento": 40},
           {"unidadVelocidad": "m/s"},
-          {"ancho": 5},
-          {"largo": 7},
+          {"ancho": 9},
+          {"largo": 11},
           {"entradaMina":
             [
-            {"x":1},
-            {"y":1}
+            {"x":0},
+            {"y":6}
             ]
           },
           {
@@ -115,8 +115,62 @@
               "1":
                 [
                 {"tipo": "D"},
-                {"x": 1},
+                {"x": 6},
+                {"y": 4}
+                ],
+              "2":
+                [
+                {"tipo": "D"},
+                {"x": 3},
+                {"y": 10}
+                ],
+              "3":
+                [
+                {"tipo": "D"},
+                {"x": 4},
+                {"y": 7}
+                ],
+              "4":
+                [
+                {"tipo": "D"},
+                {"x": 5},
+                {"y": 1}
+                ],
+              "5":
+                [
+                {"tipo": "D"},
+                {"x": 8},
                 {"y": 2}
+                ],
+              "6":
+                [
+                {"tipo": "D"},
+                {"x": 4},
+                {"y": 0}
+                ],
+              "7":
+                [
+                {"tipo": "D"},
+                {"x": 5},
+                {"y": 3}
+                ],
+              "8":
+                [
+                {"tipo": "D"},
+                {"x": 2},
+                {"y": 9}
+                ],
+              "9":
+                [
+                {"tipo": "D"},
+                {"x": 7},
+                {"y": 5}
+                ],
+              "10":
+                [
+                {"tipo": "D"},
+                {"x": 8},
+                {"y": 6}
                 ]
              }
           }
@@ -124,15 +178,15 @@
           "2":
           [
           {"tipoMineral": "cobre"},
-          {"capacidadMineros": 7},
+          {"capacidadMineros": 5},
           {"capacidadDeposito": 500},
           {"unidadCapacidad": "kg"},
           {"tiempoExtraccion": 0.2},
           {"unidadTiempo": "segundos"},
           {"velocidadDesplazamiento": 40},
           {"unidadVelocidad": "m/s"},
-          {"ancho": 5},
-          {"largo": 7},
+          {"ancho": 9},
+          {"largo": 9},
           {"entradaMina":
             [
             {"x":1},
@@ -145,14 +199,20 @@
               "0":
                 [
                 {"tipo": "T"},
-                {"x": 1},
-                {"y": 1}
+                {"x": 8},
+                {"y": 3}
                 ],
               "1":
                 [
                 {"tipo": "D"},
-                {"x": 1},
+                {"x": 5},
                 {"y": 2}
+                ],
+              "2":
+                [
+                {"tipo": "D"},
+                {"x": 4},
+                {"y": 6}
                 ]
              }
           }
