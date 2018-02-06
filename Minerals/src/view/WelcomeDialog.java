@@ -28,7 +28,7 @@ public class WelcomeDialog extends JPanel {
     private JFrame mineFrame;
     private int opcionSelecionada;
     private int tipoMineral;
-    private IndexFrame indexFrame;
+    private MainFrame indexFrame;
 
     public WelcomeDialog() {
         this.tipoMineral = -1;
@@ -168,11 +168,12 @@ public class WelcomeDialog extends JPanel {
                 Logger.getLogger(WelcomeDialog.class.getName()).log(Level.SEVERE, null, ex);
             }
             //System.out.println("You chose to open this file:" + chooser.getSelectedFile().getName());            
-            setIndexFrame(new IndexFrame());
+            setIndexFrame(new MainFrame(minerals));
             if (minerals != null) {
                 getIndexFrame().setMineralsSa(minerals);
             }            
             getIndexFrame().setVisible(true);
+            getIndexFrame().getMineralsSa().allPossibleProfits();
             System.out.println(getIndexFrame().getMineralsSa().toString());
             for (Mine mine : getIndexFrame().getMineralsSa().getMines()) {
                 mine.printDepositsPosition();
@@ -186,7 +187,7 @@ public class WelcomeDialog extends JPanel {
      */
     private void opcionPredeterminda() {
         System.out.println("Opción predeterminada");
-        setMineFrame(new IndexFrame());
+        setMineFrame(new MainFrame());
         getMineFrame().setVisible(true);
     }
 
@@ -223,14 +224,14 @@ public class WelcomeDialog extends JPanel {
     /**
      * @return the indexFrame
      */
-    public IndexFrame getIndexFrame() {
+    public MainFrame getIndexFrame() {
         return indexFrame;
     }
 
     /**
      * @param indexFrame the indexFrame to set
      */
-    public void setIndexFrame(IndexFrame indexFrame) {
+    public void setIndexFrame(MainFrame indexFrame) {
         this.indexFrame = indexFrame;
     }
 
