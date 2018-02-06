@@ -24,7 +24,9 @@ public class Mine {
     private int displacementSpeed;
     private String speedUnit;
     private Node exit;
-
+    private LinkedList<Worker> workers;
+    
+    
     public Mine(int width, int height) {
         map = new Matrix(width, height);
         deposits = new LinkedList<>();
@@ -195,18 +197,16 @@ public class Mine {
         return getMap().getNode(posrow, poscolumn).getSpace();
     }
 
-//    public LinkedList<Nodo> encontrarCamino(Nodo dep) {
-//        //Retornar aqui lista de nodos entre salida y el deposito mas cercano
-//        //Nodo dep=obtenerDepositoMasCercano();
-//        if (dep != null) {
-//            matriz.llenarVecinos();
-//            estrategia = new EstrategiaCaminoMasCorto(salida, dep, matriz);
-//            estrategia.buscar();
-//            //System.out.println(" "+estrategia.imprimirMatriz());
-//            //System.out.println(""+estrategia.camino);
-//        }
-//        return estrategia.camino;
-//    }
+    public LinkedList<Node> findPath(Node deposit) {
+        LinkedList<Node>path=new LinkedList<Node>();
+        if (deposit != null) {
+            map.fillNeighbors();
+        }
+        return path;
+    }
+
+    
+
     public void addDeposit(Node n, String mineral, int quantity) {
         getDeposits().add(new Deposit(n, mineral, quantity));
     }
