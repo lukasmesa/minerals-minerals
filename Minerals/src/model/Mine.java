@@ -44,9 +44,10 @@ public class Mine implements Runnable {
         this.map = new Matrix(rows, columns);
         this.deposits = new LinkedList<>();
         this.profits = new LinkedList<>();
-        this.workers.add(minero1);
-        this.workers.add(minero2);
-        this.workers.add(minero3);
+        this.workers = new LinkedList<>();
+        workers.add(minero1);
+        workers.add(minero2);
+        workers.add(minero3);
         this.hilomina = new Thread(this);
         this.comparing = new HeuristicNodes();
         this.closestDeposits = new PriorityQueue<>(comparing);
