@@ -174,8 +174,6 @@ public class WelcomeDialog extends JPanel {
             }            
             getIndexFrame().setVisible(true);
             getIndexFrame().getMineralsSa().allPossibleProfits();
-            getIndexFrame().getMineralsSa().orderMinesByHighestProfit();
-            getIndexFrame().getMineralsSa().calculateMaximumPossibleMiners();
             System.out.println(getIndexFrame().getMineralsSa().toString());
             for (Mine mine : getIndexFrame().getMineralsSa().getMines()) {
                 mine.printDepositsPosition();

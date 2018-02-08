@@ -5,14 +5,16 @@
  */
 package model;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 /**
  *
  * @author unalman
  */
-public class Mine {
+public class Mine implements Runnable {
 
     private LinkedList<Deposit> deposits;
     private Matrix map;
@@ -25,18 +27,37 @@ public class Mine {
     private String speedUnit;
     private LinkedList<Profit> profits;
     private Node exit;
+    private LinkedList<Worker> workers;
+    private Worker minero1 = new Worker();
+    private Worker minero2 = new Worker();
+    private Worker minero3 = new Worker();
+    private Thread hilomina = new Thread();
+    private PathCalculator bestpath;
+    private PriorityQueue<Node> closestDeposits;
+    private HeuristicNodes comparing;
+
+    public PriorityQueue<Node> getClosestDeposits() {
+        return closestDeposits;
+    }
 
     public Mine(int rows, int columns) {
         this.map = new Matrix(rows, columns);
         this.deposits = new LinkedList<>();
         this.profits = new LinkedList<>();
+        this.workers = new LinkedList<>();
+        workers.add(minero1);
+        workers.add(minero2);
+        workers.add(minero3);
+        this.hilomina = new Thread(this);
+        this.comparing = new HeuristicNodes();
+        this.closestDeposits = new PriorityQueue<>(comparing);
 
     }
-    
 
     public Mine(String mineral, int minersCapacity, int depositCapacity, double timeExtraction, String timeUnit, int displacementSpeed, String speedUnit, int rows, int columns) {
         this.deposits = new LinkedList<>();
         this.profits = new LinkedList<>();
+        this.workers = new LinkedList<>();
         this.map = new Matrix(rows, columns);
         this.mineral = mineral;
         this.minersCapacity = minersCapacity;
@@ -53,23 +74,19 @@ public class Mine {
                 this.addMapSector(currentNode);
             }
         }
+        this.workers = new LinkedList<>();
+        workers.add(minero1);
+        workers.add(minero2);
+        workers.add(minero3);
+        this.comparing = new HeuristicNodes();
+        this.closestDeposits = new PriorityQueue<>(comparing);
     }
 
-    public Mine(Mine mine) {
-        this.deposits = mine.getDeposits();
-        this.map = mine.getMap();
-        this.mineral = mine.getMineral();
-        this.minersCapacity = mine.getMinersCapacity();
-        this.depositCapacity = mine.getDepositCapacity();
-        this.timeExtraction = mine.getTimeExtraction();
-        this.timeUnit = mine.getTimeUnit();
-        this.displacementSpeed = mine.getDisplacementSpeed();
-        this.speedUnit = mine.getSpeedUnit();
-        this.profits = mine.getProfits();
-        this.exit = mine.getExit();
+    public void paintWorkers(Graphics g) {
+        for (Worker worker : workers) {
+            worker.paintWorker(g);
+        }
     }
-    
-    
 
     /**
      * @return the deposits
@@ -202,7 +219,7 @@ public class Mine {
     }
 
     public Node getElementinPosition(int posrow, int poscolumn) {
-        //System.out.println("Position: X:"+poscolumn+" Y:"+posrow);
+        System.out.println("Position: X:" + poscolumn + " Y:" + posrow);
         return getMap().getNode(posrow, poscolumn);
     }
 
@@ -218,16 +235,22 @@ public class Mine {
     }
 
     public LinkedList<Node> findPath(Node deposit) {
-        LinkedList<Node> path = new LinkedList<>();
         if (deposit != null) {
             map.fillNeighbors();
+            bestpath = new PathCalculator(exit, deposit, map);
+            bestpath.FindPath();
+
         }
-        return path;
+        return bestpath.getPath();
     }
 
     public void addDeposit(Node n, String mineral, int quantity) {
-        //System.out.println(n.getCategory() + " " + mineral + " " + quantity);
+        System.out.println(n.getCategory() + " " + mineral + " " + quantity);
         getDeposits().add(new Deposit(n, mineral, quantity));
+        if (exit != null) {
+            n.setCost((int) Math.sqrt(Math.pow(n.getX() - exit.getX(), 2) + Math.pow(n.getY() - exit.getY(), 2)));
+            closestDeposits.add(n);
+        }
     }
 
     public int depositsPerType(int type) {
@@ -250,6 +273,26 @@ public class Mine {
         }
         c += "]";
         System.out.println("Depositos: " + c);
+    }
+
+    public int QuantityDeposit(Node node) {
+        for (Deposit o : deposits) {
+            if (o.getNode().equals(node)) {
+                return o.getQuantity();
+            }
+        }
+        return 0;
+    }
+
+    public void Work(Node node) {
+        for (Deposit o : deposits) {
+            if (o.getNode().equals(node)) {
+                if (o.getQuantity() > 0) {
+                    o.setQuantity(o.getQuantity() - 1);
+                    System.out.println("Saqué: " + o.getQuantity());
+                }
+            }
+        }
     }
 
     public String printMap() {
@@ -302,12 +345,25 @@ public class Mine {
      */
     public void setProfits(LinkedList<Profit> profits) {
         this.profits = profits;
-    }    
-    
+    }
+
+    /**
+     * @return the workers
+     */
+    public LinkedList<Worker> getWorkers() {
+        return workers;
+    }
+
+    /**
+     * @param workers the workers to set
+     */
+    public void setWorkers(LinkedList<Worker> workers) {
+        this.workers = workers;
+    }
 
     public String showProfits() {
         String cadena = "";
-        //System.out.println(getProfits().size());
+        System.out.println(getProfits().size());
         for (Profit profit : getProfits()) {
             cadena = cadena + profit.getQuantity() + " E: " + profit.getSpecialists() + " C: " + profit.getJokers() + " - ";
         }
@@ -315,11 +371,24 @@ public class Mine {
     }
 
     @Override
-    public String toString() {
-        String cadena;
-        cadena = "Mina: "+"Depositos: "+this.depositsPerType(2)+" ganancia máxima "+getProfits().get(0).getQuantity();
-        return cadena;
+    public void run() {
+        boolean continuar = true;
+        while (continuar) {
+            for (Worker minero : workers) {
+                minero.avanzar(this);
+            }
+            continuar = false;
+        }
     }
-    
-    
+
+    public void start() {
+        this.hilomina.start();
+    }
+
+    public Node obtainClosestDeposit() {
+        if (!closestDeposits.isEmpty()) {
+            return closestDeposits.poll();
+        }
+        return null;
+    }
 }
