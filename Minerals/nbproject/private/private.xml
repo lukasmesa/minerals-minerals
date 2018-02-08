@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/GitHub/minerals-minerals/Minerals/src/view/MineFrame.java</file>
-            <file>file:/D:/Documents/GitHub/minerals-minerals/Minerals/src/model/Worker.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/view/WelcomeDialog.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Minerals_SA.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Profit.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Mine.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/view/JSON_Reader.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Matrix.java</file>
+            <file>file:/D:/Lukas/Documentos/NetBeansProjects/ProyectoAnalisisMinerals/Minerals/src/model/Worker.java</file>
         </group>
     </open-files>
 </project-private>

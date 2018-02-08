@@ -35,11 +35,9 @@
               <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="btnCreateMine" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="Iniciar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,10 +47,7 @@
               <EmptySpace pref="25" max="32767" attributes="0"/>
               <Component id="panelMineCreator" max="32767" attributes="0"/>
               <EmptySpace type="separate" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnCreateMine" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Iniciar" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnCreateMine" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -105,14 +100,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreateMineActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="Iniciar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Iniciar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="IniciarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

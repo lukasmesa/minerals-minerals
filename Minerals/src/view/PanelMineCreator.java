@@ -13,13 +13,11 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.OverlayLayout;
-import model.Deposit;
 
 /**
  *
@@ -41,7 +39,6 @@ public class PanelMineCreator extends javax.swing.JPanel implements ActionListen
     private JMenuItem itemEntradaSalida;
     private JMenuItem itemDeposito;
     private JMenuItem itemCamino;
-    public LinkedList<Node> caminotemporal;
 
     public PanelMineCreator() {
         initComponents();
@@ -51,10 +48,7 @@ public class PanelMineCreator extends javax.swing.JPanel implements ActionListen
         this.menuOpciones = new JPopupMenu("Opciones De Creación");
         this.optionsMenu();
         setLayout(new OverlayLayout(this));
-        this.caminotemporal=new LinkedList<Node>();
     }
-    
-    
 
     public int getHeightMine() {
         return heightMine;
@@ -176,9 +170,8 @@ public class PanelMineCreator extends javax.swing.JPanel implements ActionListen
                     g.drawRect(space.x, space.y, space.width, space.height);
                 }
             }
-            mine.paintWorkers(g);
+
         }
-        this.repaint();
     }
 
     public void setRowsCol(int w, int h) {
@@ -206,6 +199,10 @@ public class PanelMineCreator extends javax.swing.JPanel implements ActionListen
         if (tobecolored != null && isPaintable()) {
             JLabel label = new JLabel();
             label.setBounds(tobecolored.getSpace());
+            if (getComponentAt(tobecolored.getX(), tobecolored.getY()) != null) {
+                remove(getComponentAt(tobecolored.getX(), tobecolored.getY()));
+            }
+
             switch (getOptionselected()) {
                 case 0:
                     repaint(tobecolored.getSpace());

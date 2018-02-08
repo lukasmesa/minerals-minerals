@@ -80,7 +80,7 @@ public class Matrix {
                             current.addNeighbor(matrix[row][column - 1]);
                         } else {
                             current.addNeighbor(matrix[row + 1][column]);
-                            current.addNeighbor(matrix[row][column-1]);
+                            current.addNeighbor(matrix[row - 1][column]);
                             current.addNeighbor(matrix[row][column + 1]);
                         }
                     } else if (row == rows - 1) {
