@@ -23,17 +23,21 @@ public class PathCalculator {
     private boolean pathFound;
     private PriorityQueue<Node> openList;
     private ArrayList<Node> closedList;
+    private int cost = 1;
     private LinkedList<Node> path;
-    private HeuristicNodes comparing;
 
     public PathCalculator(Node start, Node end, Matrix map) {
         this.start = start;
         this.end = end;
         this.map = map;
         this.pathFound = false;
-        this.comparing=new HeuristicNodes();
         this.closedList = new ArrayList<Node>();
-        this.openList = new PriorityQueue<Node>(comparing);
+        this.openList = new PriorityQueue<Node>(new Comparator<Node>() {
+            @Override
+            public int compare(Node node0, Node node1) {
+                return Double.compare(node0.getCost(), node1.getCost());
+            }
+        });
         this.path = new LinkedList<Node>();
         this.openList.add(start);
     }
@@ -44,7 +48,7 @@ public class PathCalculator {
             closedList.add(current);
             if (end.equals(current)) {
                 pathFound = true;
-                getPathsito(current);
+                getPath(current);
             } else {
                 addAdjacents(current);
             }
@@ -68,23 +72,12 @@ public class PathCalculator {
         node.setCost((int) Math.sqrt(Math.pow(node.getX() - end.getX(), 2) + Math.pow(node.getY() - end.getY(), 2)));
     }
 
-    public void getPathsito(Node current) {
-        Node n=current;
-        while (n != start) {
-            path.add(n);
-            n.setInRoute(true);
-            n = n.getPredecessor();
+    public void getPath(Node current) {
+        while (current != start) {
+            path.add(current);
+            current.setInRoute(true);
+            current = current.getPredecessor();
         }
     }
-
-    public LinkedList<Node> getPath() {
-        return path;
-    }
-
-    public void setPath(LinkedList<Node> path) {
-        this.path = path;
-    }
-    
-    
 
 }

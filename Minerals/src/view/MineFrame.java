@@ -11,9 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JToggleButton;
-import model.Deposit;
-import model.Node;
-import model.Worker;
 
 /**
  *
@@ -40,7 +37,7 @@ public class MineFrame extends javax.swing.JFrame {
         loadMap(20, 20);
         //loadButtons();
     }
-
+    
     /**
      * @return the buttons
      */
@@ -62,69 +59,6 @@ public class MineFrame extends javax.swing.JFrame {
         return frame;
     }
 
-    private void animate() {
-        Node currentDeposit = panelMineCreator.getMine().obtainClosestDeposit();
-        LinkedList<LinkedList<Node>> caminos = new LinkedList<LinkedList<Node>>();
-        LinkedList<Node> listota = new LinkedList<Node>();
-        while (currentDeposit != null) {
-            LinkedList<Node> list = panelMineCreator.getMine().findPath(currentDeposit);
-            list.add(panelMineCreator.getMine().getExit());
-            listota.addAll(reverseList(list));
-            System.out.println(panelMineCreator.getMine().QuantityDeposit(currentDeposit));
-            listota.addAll(list);
-            caminos.add(listota);
-            currentDeposit = panelMineCreator.getMine().obtainClosestDeposit();
-        }
-
-        lookingForRoutes(caminos);
-
-    }
-
-    public void lookingForRoutes(LinkedList<LinkedList<Node>> caminos) {
-        int sizeWorkers = panelMineCreator.getMine().getWorkers().size();
-        LinkedList<Worker> listamineros = panelMineCreator.getMine().getWorkers();
-        int sizeDeposits = panelMineCreator.getMine().getDeposits().size();
-        if (!caminos.isEmpty()) {
-            int i = 0;
-            if (sizeWorkers == sizeDeposits) {
-                for (Worker minero : listamineros) {
-                    minero.setCurrentPath(caminos.get(i));
-                    caminos.poll();
-                }
-            }
-            if (sizeWorkers < sizeDeposits) {
-                int j = 0;
-                while (!caminos.isEmpty()) {
-                    if (j == sizeWorkers) {
-                        j = 0;
-                    }
-                    panelMineCreator.getMine().getWorkers().get(j).getPossiblePaths().add(caminos.get(i));
-                    j++;
-                    caminos.poll();
-                }
-            }
-            if (sizeWorkers > sizeDeposits) {
-                int k = 0;
-                for (Worker minerito : listamineros) {
-                    if (k == sizeDeposits) {
-                        k = 0;
-                    }
-                    minerito.getPossiblePaths().add(caminos.get(k));
-                    k++;
-                }
-            }
-            this.panelMineCreator.getMine().start();
-        }
-    }
-
-    private LinkedList<Node> reverseList(LinkedList<Node> l) {
-        LinkedList<Node> reverse = new LinkedList<>();
-        for (int i = (l.size() - 1); i >= 0; i--) {
-            reverse.add(l.get(i));
-        }
-        return reverse;
-    }
-
     /**
      * @param frame the frame to set
      */
@@ -143,7 +77,6 @@ public class MineFrame extends javax.swing.JFrame {
 
         panelMineCreator = new view.PanelMineCreator();
         btnCreateMine = new javax.swing.JButton();
-        Iniciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(550, 700));
@@ -162,13 +95,6 @@ public class MineFrame extends javax.swing.JFrame {
             }
         });
 
-        Iniciar.setText("Iniciar");
-        Iniciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IniciarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,11 +104,9 @@ public class MineFrame extends javax.swing.JFrame {
                 .addComponent(panelMineCreator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCreateMine)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Iniciar)
-                .addGap(94, 94, 94))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,9 +114,7 @@ public class MineFrame extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addComponent(panelMineCreator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreateMine)
-                    .addComponent(Iniciar))
+                .addComponent(btnCreateMine)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -204,10 +126,6 @@ public class MineFrame extends javax.swing.JFrame {
         getFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCreateMineActionPerformed
-
-    private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
-        this.animate();
-    }//GEN-LAST:event_IniciarActionPerformed
 
     private void loadMap(int rows, int columns) {
         getPanelMineCreator().setLocation(100, 50);
@@ -222,6 +140,7 @@ public class MineFrame extends javax.swing.JFrame {
 //        getButtons().add(jToggleButtonDeposits);
 //        getButtons().add(jToggleButtonPaths);
 //    }
+
     private void deSelectButtons(JToggleButton btn) {
         for (JToggleButton littlebutton : getButtons()) {
             if (!littlebutton.equals(btn)) {
@@ -288,7 +207,6 @@ public class MineFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Iniciar;
     private javax.swing.JButton btnCreateMine;
     private view.PanelMineCreator panelMineCreator;
     // End of variables declaration//GEN-END:variables
