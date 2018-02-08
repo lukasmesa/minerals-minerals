@@ -44,10 +44,9 @@ public class Mine implements Runnable {
         this.map = new Matrix(rows, columns);
         this.deposits = new LinkedList<>();
         this.profits = new LinkedList<>();
-        this.workers = new LinkedList<>();
-        workers.add(minero1);
-        workers.add(minero2);
-        workers.add(minero3);
+        this.workers.add(minero1);
+        this.workers.add(minero2);
+        this.workers.add(minero3);
         this.hilomina = new Thread(this);
         this.comparing = new HeuristicNodes();
         this.closestDeposits = new PriorityQueue<>(comparing);
@@ -80,6 +79,20 @@ public class Mine implements Runnable {
         workers.add(minero3);
         this.comparing = new HeuristicNodes();
         this.closestDeposits = new PriorityQueue<>(comparing);
+    }
+
+    public Mine(Mine mine) {
+        this.deposits = mine.getDeposits();
+        this.map = mine.getMap();
+        this.mineral = mine.getMineral();
+        this.minersCapacity = mine.getMinersCapacity();
+        this.depositCapacity = mine.getDepositCapacity();
+        this.timeExtraction = mine.getTimeExtraction();
+        this.timeUnit = mine.getTimeUnit();
+        this.displacementSpeed = mine.getDisplacementSpeed();
+        this.speedUnit = mine.getSpeedUnit();
+        this.profits = mine.getProfits();
+        this.exit = mine.getExit();
     }
 
     public void paintWorkers(Graphics g) {
@@ -219,7 +232,7 @@ public class Mine implements Runnable {
     }
 
     public Node getElementinPosition(int posrow, int poscolumn) {
-        System.out.println("Position: X:" + poscolumn + " Y:" + posrow);
+        //System.out.println("Position: X:"+poscolumn+" Y:"+posrow);
         return getMap().getNode(posrow, poscolumn);
     }
 
@@ -363,10 +376,17 @@ public class Mine implements Runnable {
 
     public String showProfits() {
         String cadena = "";
-        System.out.println(getProfits().size());
+        //System.out.println(getProfits().size());
         for (Profit profit : getProfits()) {
             cadena = cadena + profit.getQuantity() + " E: " + profit.getSpecialists() + " C: " + profit.getJokers() + " - ";
         }
+        return cadena;
+    }
+
+    @Override
+    public String toString() {
+        String cadena;
+        cadena = "Mina: " + "Depositos: " + this.depositsPerType(2) + " ganancia máxima " + getProfits().get(0).getQuantity();
         return cadena;
     }
 
@@ -391,4 +411,5 @@ public class Mine implements Runnable {
         }
         return null;
     }
+
 }
