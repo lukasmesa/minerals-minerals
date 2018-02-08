@@ -81,6 +81,34 @@ public class Mine implements Runnable {
         this.comparing = new HeuristicNodes();
         this.closestDeposits = new PriorityQueue<>(comparing);
     }
+    
+        public Mine(String mineral, int minersCapacity, int depositCapacity, int rows, int columns) {
+        this.deposits = new LinkedList<>();
+        this.profits = new LinkedList<>();
+        this.workers = new LinkedList<>();
+        this.map = new Matrix(rows, columns);
+        this.mineral = mineral;
+        this.minersCapacity = minersCapacity;
+        this.depositCapacity = depositCapacity;
+        Node currentNode;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Rectangle space = new Rectangle();
+                currentNode = new Node(space, i, j);
+                this.addMapSector(currentNode);
+            }
+        }
+        this.workers = new LinkedList<>();
+        workers.add(minero1);
+        workers.add(minero2);
+        workers.add(minero3);
+        this.comparing = new HeuristicNodes();
+        this.closestDeposits = new PriorityQueue<>(comparing);
+    }
+    
+    
+    
+    
 
     public Mine(Mine mine) {
         this.deposits = mine.getDeposits();

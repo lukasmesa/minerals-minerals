@@ -54,7 +54,6 @@ public class PanelMineCreator extends javax.swing.JPanel implements ActionListen
         this.caminotemporal=new LinkedList<Node>();
     }
     
-    
 
     public int getHeightMine() {
         return heightMine;

@@ -87,6 +87,7 @@ public class MineFrame extends javax.swing.JFrame {
         if (!caminos.isEmpty()) {
             int i = 0;
             if (sizeWorkers == sizeDeposits) {
+                System.out.println(sizeWorkers);
                 for (Worker minero : listamineros) {
                     minero.setCurrentPath(caminos.get(i));
                     caminos.poll();

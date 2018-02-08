@@ -62,6 +62,7 @@ public class Minerals_SA {
         this.workers = new LinkedList<>();
         this.maxGains = new LinkedList<>();
     }
+    
 
     /**
      * @return the totalMiners
