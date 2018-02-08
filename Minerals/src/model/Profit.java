@@ -13,34 +13,30 @@ package model;
  */
 public class Profit {
 
-    private Double quantity;
+    private double quantity;
     private int specialists;
     private int jokers;
-    private String mineral;
-    private boolean checked;
 
     public Profit() {
     }
 
-    public Profit(Double quantity, int specialists, int jokers, String mineral) {
+    public Profit(double quantity, int specialists, int jokers) {
         this.quantity = quantity;
         this.specialists = specialists;
         this.jokers = jokers;
-        this.mineral = mineral;
-        this.checked = false;
     }
 
     /**
      * @return the quantity
      */
-    public Double getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
     /**
      * @param quantity the quantity to set
      */
-    public void setQuantity(Double quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
@@ -70,51 +66,5 @@ public class Profit {
      */
     public void setJokers(int jokers) {
         this.jokers = jokers;
-    }
-
-    /**
-     * @return the checked
-     */
-    public boolean isChecked() {
-        return checked;
-    }
-
-    /**
-     * @param checked the checked to set
-     */
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
-
-    /**
-     * @return the mineral
-     */
-    public String getMineral() {
-        return mineral;
-    }
-
-    /**
-     * @param mineral the mineral to set
-     */
-    public void setMineral(String mineral) {
-        this.mineral = mineral;
-    }
-
-    /**
-     * Descripción del método.
-     *
-     * @return descripción de lo que retorna
-     */
-    public int totalMiners() {
-        int total;
-        total = getSpecialists() + getJokers();
-        return total;
-    }
-
-    @Override
-    public String toString() {
-        String cadena;
-        cadena = "Ganancia: " + getQuantity() + " Especializados: " + getSpecialists() + " Comodines: " + getJokers() + " Mineral: " + getMineral();
-        return cadena;
     }
 }
