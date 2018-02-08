@@ -5,6 +5,9 @@
  */
 package model;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -14,6 +17,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
 import view.PanelMineCreator;
 
@@ -27,31 +31,74 @@ public class Worker {
     private int currentY;
     private int finalX;
     private int finalY;
-    private BufferedImage image;
+    private Image image;
     private LinkedList<Node> currentPath;
     private int touchNodes;
     private boolean going;
     private Timer timer;
     private PanelMineCreator panel;
+    private Node current;
+    private LinkedList<LinkedList<Node>> possiblePaths;
 
-    public Worker(PanelMineCreator p) {
-        this.panel = p;
-        this.touchNodes = 0;
-        this.going = true;
-        try {
-            image = ImageIO.read(new File("src/Resources/pordefecto.png"));
-            this.timer = new Timer(60, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    move();
+    public Worker() {
+        this.image = new ImageIcon(getClass().getResource("../Resources/pordefecto2.png")).getImage();
+        this.possiblePaths = new LinkedList<LinkedList<Node>>();
+    }
 
-                }
-            });
-            this.timer.setRepeats(true);
-            this.timer.setCoalesce(true);
-        } catch (IOException ex) {
-            Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+    public Worker(LinkedList<Node> currentPath) {
+        this.currentPath = currentPath;
+        this.image = new ImageIcon(getClass().getResource("../Resources/pordefecto2.png")).getImage();
+        if (!this.currentPath.isEmpty()) {
+            this.current = this.currentPath.getFirst();
         }
+        this.possiblePaths = new LinkedList<LinkedList<Node>>();
+    }
+
+    public Node depositPath(LinkedList<Node> camino) {
+        int i = 0;
+        Node temporal = camino.get(i);
+        while (!(temporal.getCategory() == 2)) {
+            i++;
+            temporal = camino.get(i);
+        }
+        return temporal;
+    }
+
+    public void avanzar(Mine mina) {
+        for (LinkedList<Node> listica : possiblePaths) {
+            Node temporal = depositPath(listica);
+            if (mina.QuantityDeposit(temporal) > 0) {
+                this.currentPath = listica;
+                for (Node nodo : currentPath) {
+                    try {
+                        this.current = nodo;
+                        if (this.current.getCategory() == 2) {
+                            Thread.sleep(1000);
+                            mina.Work(this.current);
+                        }
+                        Thread.sleep(250);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(Worker.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    }
+
+    public LinkedList<LinkedList<Node>> getPossiblePaths() {
+        return possiblePaths;
+    }
+
+    public void setPossiblePaths(LinkedList<LinkedList<Node>> possiblePaths) {
+        this.possiblePaths = possiblePaths;
+    }
+
+    public void paintWorker(Graphics g) {
+        if (current != null) {
+            g.setColor(Color.red);
+            g.drawImage(this.image, current.getY() * 25 + 5, current.getX() * 25 + 5, null);
+        }
+
     }
 
     public LinkedList<Node> getCurrentPath() {
@@ -74,7 +121,7 @@ public class Worker {
         return finalY;
     }
 
-    public BufferedImage getImage() {
+    public Image getImage() {
         return image;
     }
 
@@ -84,6 +131,9 @@ public class Worker {
 
     public void setCurrentPath(LinkedList<Node> currentPath) {
         this.currentPath = currentPath;
+        if (!this.currentPath.isEmpty()) {
+            this.current = this.currentPath.getFirst();
+        }
     }
 
     public boolean isGoing() {
@@ -116,59 +166,6 @@ public class Worker {
 
     public void setTouchNodes(int touchNodes) {
         this.touchNodes = touchNodes;
-    }
-
-    private void move() {
-        int moveX = finalX - currentX;
-        int moveY = finalY - currentY;
-        if (moveX < 0) {
-            moveLeft();
-        } else if (moveX > 0) {
-            moveRight();
-        }
-        if (moveY < 0) {
-            moveUp();
-        } else if (moveY > 0) {
-            moveDown();
-        }
-        panel.repaint();
-        if (moveX == 0 && moveY == 0) {
-
-            if (touchNodes < currentPath.size()) {
-                if (currentPath.get(touchNodes).getCategory()== 3) {
-                    System.out.println("In Deposit");
-                    currentPath.get(touchNodes).setCategory(2);
-                    panel.paintSpace(currentPath.get(touchNodes));
-                }
-                finalX = currentPath.get(touchNodes).getX();
-                finalY = currentPath.get(touchNodes).getY();
-                touchNodes++;
-
-            } else {
-                timer.stop();
-            }
-
-        }
-    }
-
-    private void moveLeft() {
-        currentX -= 1;
-    }
-
-    private void moveRight() {
-        currentX += 1;
-    }
-
-    private void moveUp() {
-        currentY -= 1;
-    }
-
-    private void moveDown() {
-        currentY += 1;
-    }
-
-    public void Animate() {
-        timer.start();
     }
 
     public boolean isRunning() {
